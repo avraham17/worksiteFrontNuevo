@@ -10,14 +10,7 @@ body{
     margin:0;
     padding:0;
     font-family:Arial, sans-serif;
-    
-    background:
-    linear-gradient(
-        rgba(15, 23, 42, 0.75),
-        rgba(66, 76, 96, 0.65)
-    ),
-    url(../assets/2.jpg);
-
+    background:linear-gradient( rgba(15, 23, 42, 0.75), rgba(66, 76, 96, 0.65)),url(../assets/2.jpg);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

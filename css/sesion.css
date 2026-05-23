@@ -21,7 +21,7 @@ body{
     flex:1;
     background:
     linear-gradient(rgba(88, 108, 138, 0.75),
-    rgba(4, 17, 36, 0.75)),url(../assets/fd.jpeg);
+    rgba(4, 17, 36, 0.75)),url(../assets/fde.webp);
     background-size:cover;
     background-position:center;
     display:flex;

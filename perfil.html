@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil- WorkSite</title>
+  <link rel="stylesheet" href="css/perfil.css">
+
+  <div id="nn"><img src="assets/la_oportunidad_436x400.png" width="380px"></div>
+  
+ </head>
+        
+<body>
+
+  <header>
+           <nav>
+        <a href="#">Inicio</a>
+        <a href="#">Ofertas</a>
+        <a href="#">Empresas</a>
+        <a href="#">Publicar Vacante</a> 
+        <a href="sesion.html">Ingresar</a>
+        </nav>
+        </header>
+        
+  <div class="container">
+    <h1>Mi Perfil Laboral</h1>
+    <div class="header">
+      <div class="photo-box">
+        <img id="preview" class="photo-preview" src="https://via.placeholder.com/140" alt="Foto de perfil">
+        <label for="photoUpload" class="btn">Subir foto</label>
+        <input type="file" id="photoUpload" accept="image/*">
+      </div>
+        
+      <div class="info">
+        <input id="nameInput" type="text" placeholder="Nombre completo">
+        <input id="numeroInput" type="number" placeholder=" Numero Telefonico">
+        <input id="emailInput" type="email" placeholder="Correo electrónico">
+        <input id="roleInput" type="text" placeholder="Cargo profesional (ej: Desarrollador Web)">
+        <input id="estudiosInput" type="estudios" placeholder="Nivel de estudio">
+        <textarea id="bioInput" rows="4" placeholder="Descripción profesional / Sobre mí"></textarea>
+      </div>
+    </div>
+
+      <div class="actions2">
+      <button class="btn secondary">Editar información</button>
+      <button class="btn danger">Eliminar perfil</button>
+    </div>
+
+    <div class="nt">
+ <div style="margin-top:30px; padding:20px; background:#f9fafb; border-radius:15px; border:1px solid #e5e7eb;">
+      <h2>Datos del usuario</h2>
+      <p><strong>Nombre:</strong> <span id="viewName">No especificado</span></p>
+      <p><strong>Cedula:</strong> <span id="viewCedula">No especificado</span></p>
+      <p><strong>Ciudad:</strong> <span id="viewCiudad">No especificado</span></p>
+      <p><strong>Fecha de Nacimiento:</strong> <span id="viewFecha">No especificado</span></p>
+      <p><strong>Numero Telefonico:</strong> <span id="viewNumero">No especificado</span></p>
+      <p><strong>Correo electrónico:</strong> <span id="viewEmail">No especificado</span></p>       
+      <p><strong>Ocupacion u oficio:</strong> <span id="viewOcupación">No especificado</span></p>
+       <p><strong>Nivel de estudio:</strong> <span id="viewNivel">No especificado</span></p>
+      <p><strong>Descripción:</strong> <span id="viewDescripción">No especificado</span></p>
+    </div>  
+    </div>
+
+    <div class="actions">
+      <button class="btn" onclick="guardarPerfil()">Guardar perfil</button>
+      <button class="btn secondary">Editar información</button>
+      <button class="btn">Descargar CV</button>
+      <button class="btn danger">Eliminar perfil</button>
+    </div>
+  </div>
+
+    <script src="Js/perfil.js"></script>
+
+</body>
+</html>
