@@ -1,42 +1,52 @@
-$(function (){
+$(function () {
 
-$()
-$("botonRegistrarse").click(onClickButton);
+    var idUsuario = localStorage.getItem("idUsuario");
+
+    console.log("ID RECUPERADO:", idUsuario);
+
+    loadData(idUsuario);
 
 });
- 
-    var onChangeInputWithErrorClass = function (e){
-      removeClassError (e.target);
-    }
 
-    var onClickButton = function (e) {
-      e.preventDefault ();
-      var isFormValid = true;
-    }
-
-    if ($("").val ()===""){
-      $("").addClass("error")
-      isFormValid = false;
-    }
-    if(!isFormValid){
-      aler ("Formulario incompleto!");
-    }
-
-    alert ("Formulario completo");
+function loadData(idUsuario){
 
 
+    callApi(
+        "http://localhost:8080/ResgistroUsuario/" + idUsuario,
+        "GET",
+        null,
+        cargarPerfil,
+        cbError
+    );
+}
 
-    function removeClassError (target){
-      $(target),removeClass("error");
-    }
+function cargarPerfil(response){
 
 
+    $("#mostrarNombre").text (
+        response.data.nombres + " " + response.data.apellidos
+    );
 
+    $("#mostrarCorreo").text(
+        response.data.correoElectronico
+    );
 
+    $("#mostrarTelefono").text(
+        response.data.numeroTelefonico
+    );
 
+    $("#mostrarCedula").text(
+        response.data.cedula
+    );
 
+     $("#mostrarfechaNacimiento").text(
+        response.data.fechaNacimiento
+    );
+}
 
-
+function cbError(error){
+    console.log("Error API:", error);
+}
 
 
 

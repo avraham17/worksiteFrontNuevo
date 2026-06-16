@@ -1,4 +1,4 @@
-alert("JS conectado");
+var registros = [];
 
 $(function (){
 
@@ -6,6 +6,8 @@ $("#nombre, #Apellido, #correo, #tipoDocumento, #Cedula, #telefono, #fechaNacimi
 $("#botonRegistrarse").click(onClickButton);
 
 });
+
+
  var onChangeInputWithErrorClass = function (e) {
   removeClassError(e.target);
 }
@@ -73,12 +75,44 @@ var onClickButton = function (e) {
     return;
   }
 
-  alert("Formulario completo");
+  var newRegistro = {
+    "nombres": $("#nombre").val (),
+    "apellidos": $("#Apellido").val (),
+    "correoElectronico": $("#correo").val (),
+    "tipoIdentificacion": $("#tipoDocumento").val (),
+    "cedula": $("#Cedula").val (),
+    "numeroTelefonico": $("#telefono").val (),
+    "fechaNacimiento": $("#fechaNacimiento").val (),
+    "genero": $("#Genero").val (),
+    "anosExperiencia": $("#experiencia").val (),
+    "contrasenia": $("#contraseña").val (),
+    
+  };
+
+
+saveData (newRegistro);
+
+
+
 }
 
-function removeClassError(target) {
-  $(target).removeClass("error");
+function saveData (data) {
+var base_url = "http://localhost:8080/ResgistroUsuario";
+var method = "POST";
+callApi (base_url, method, data, cbSuccess, cbError);
+
 }
 
+function cbSuccess (data)  {   
+  alert("Registro guardado correctamente");
 
+    $("#formRegistro")[0].reset();
+
+    localStorage.setItem("idUsuario", data.data.id);
+    window.location.href = "perfil.html";
+}
+
+function cbError (data)  {
+  alert(JSON.stringify(data));
+}
 
