@@ -26,15 +26,15 @@
         <h2>Iniciar Sesión</h2>
         <p>Accede a tu cuenta </p>
 
-        <form action="inicio 2.html">
+        <form id="loginForm">
           <div class="input-box">
             <label>Correo electrónico</label>
-            <input type="email" placeholder="ejemplo@correo.com" required>
+            <input id="email" type="email" placeholder="ejemplo@correo.com" required>
           </div>
 
           <div class="input-box">
             <label>Contraseña</label>
-            <input type="password" placeholder="••••••••" required>
+            <input id="password" type="password" placeholder="••••••••" required>
           </div>
 
           <div class="extras">
@@ -45,7 +45,7 @@
             <a href="#">¿Olvidaste tu contraseña?</a>
           </div>
 
-          <button type="submit">Entrar</button>
+          <button id="btnLogin" type="submit">Entrar</button>
           
 
           <div class="divider">
@@ -62,5 +62,13 @@
 
   </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="Js/core.js"></script>
+    <script src="Js/sesion.js"></script>
+     
 </body>
 </html>

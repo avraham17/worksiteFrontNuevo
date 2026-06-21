@@ -2,7 +2,7 @@ var registros = [];
 
 $(function (){
 
-$("#nombre, #Apellido, #correo, #tipoDocumento, #Cedula, #telefono, #fechaNacimiento, #Genero, #experiencia, #contraseña, #confirmar, #cv").on("change", onChangeInputWithErrorClass);
+$("#nombre, #Apellido, #correo, #tipoDocumento, #Cedula, #telefono, #fechaNacimiento, #Genero, #experiencia, #contraseña, #confirmar, #cv, #Descripcion, #Estudio, #Cargo, #Ciudad ").on("change", onChangeInputWithErrorClass);
 $("#botonRegistrarse").click(onClickButton);
 
 });
@@ -70,6 +70,26 @@ var onClickButton = function (e) {
     isFormValid = false;
   }
 
+  if ($("#Ciudad").val() === "") {
+    $("#Ciudad").addClass("error");
+    isFormValid = false;
+  }
+
+  if ($("#Cargo").val() === "") {
+    $("#Cargo").addClass("error");
+    isFormValid = false;
+  }
+
+  if ($("#Estudio").val() === "") {
+    $("#Estudio").addClass("error");
+    isFormValid = false;
+  }
+
+  if ($("#Descripcion").val() === "") {
+    $("#Descripcion").addClass("error");
+    isFormValid = false;
+  }
+
   if (!isFormValid) {
     alert("Formulario incompleto!");
     return;
@@ -86,12 +106,15 @@ var onClickButton = function (e) {
     "genero": $("#Genero").val (),
     "anosExperiencia": $("#experiencia").val (),
     "contrasenia": $("#contraseña").val (),
+    "ciudad": $("#Ciudad").val (),
+    "cargo": $("#Cargo").val (),
+    "estudio": $("#Estudio").val (),
+    "descripcion": $("#Descripcion").val (),
     
   };
 
 
 saveData (newRegistro);
-
 
 
 }
@@ -109,7 +132,7 @@ function cbSuccess (data)  {
     $("#formRegistro")[0].reset();
 
     localStorage.setItem("idUsuario", data.data.id);
-    window.location.href = "perfil.html";
+    window.location.href = "sesion.html";
 }
 
 function cbError (data)  {

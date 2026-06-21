@@ -1,94 +1,116 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/inicio 2.css">
-<title>WorkSite - Portal de Empleo</title>
-
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/inicio 2.css">
+  <title>WorkSite - Portal de Empleo</title>
 </head>
 <body>
 
 <header>
-    <div class="logo">WorkSite</div>
-        <div id="nn"><img src="assets/la_oportunidad_436x400.png" width="250px"></div>
-        <div id="n2"><img src="assets/66877.png" width="230px"></div>
-    <nav>
-        <a href="#">Inicio</a>
-        <a href="#">Ofertas</a>
-        <a href="#">Empresas</a>
-        <a href="#">Publicar Vacante</a> 
-        <a href="perfil.html">Mi perfil</a>
-    </nav>
+  <div class="logo">WorkSite</div>
+
+  <nav>
+    <a href="#" class="nav-link">Inicio</a>
+
+    <div class="menu-item">
+      <a href="#" class="nav-link">
+        Ofertas <span class="arrow">▾</span>
+      </a>
+      <div class="submenu">
+        <a href="#"><span class="icon">📢</span> Publicar oferta</a>
+        <a href="#"><span class="icon">💼</span> Aplicar a oferta</a>
+      </div>
+    </div>
+
+    <a href="#" class="nav-link">Empresas</a>
+
+    <div class="menu-item">
+      <a href="#" class="nav-link">
+
+        <div class="avatar" id="avatarInicial">JD</div>
+        <span class="arrow">▾</span>
+      </a>
+      <div class="submenu">
+        <a href="perfil.html"><span class="icon">👤</span> Mi perfil</a>
+        <a href="#"><span class="icon">⚙️</span> Configuración</a>
+        <div class="divider"></div>
+        <a href="sesion.html" class="danger"><span class="icon">🚪</span> Cerrar sesión</a>
+      </div>
+    </div>
+  </nav>
 </header>
 
 <section class="hero">
-    <h1>Encuentra el trabajo ideal para ti</h1>
-    <p>Explora miles de oportunidades laborales en un solo lugar</p>
-
-    <div class="search-box">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1>Encuentra el trabajo ideal para ti</h1>
+      <p>Explora miles de oportunidades laborales en un solo lugar</p>
+      <div class="search-box">
         <input type="text" placeholder="Cargo o palabra clave">
         <input type="text" placeholder="Ciudad o país">
         <button>Buscar</button>
+      </div>
     </div>
+
+    <div class="hero-images">
+      <img class="img-logo-circle" src="assets/la_oportunidad_436x400.png" alt="Logo WorkSite">
+      <img class="img-mujer" src="assets/66877.png" alt="Profesional">
+    </div>
+  </div>
 </section>
 
 <section class="section">
-    <h2>Categorías populares</h2>
-
-    <div class="categories">
-        <div class="category">💻 Tecnología</div>
-        <div class="category">📊 Administración</div>
-        <div class="category">🎨 Diseño</div>
-        <div class="category">📈 Marketing</div>
-        <div class="category">🏥 Salud</div>
-        <div class="category">⚙ Ingeniería</div>
-    </div>
+  <h2>Categorías populares</h2>
+  <div class="categories">
+    <div class="category">💻 Tecnología</div>
+    <div class="category">📊 Administración</div>
+    <div class="category">🎨 Diseño</div>
+    <div class="category">📈 Marketing</div>
+    <div class="category">🏥 Salud</div>
+    <div class="category">⚙ Ingeniería</div>
+  </div>
 </section>
 
 <section class="section">
-    <h2>Empleos destacados</h2>
-
-    <div class="jobs">
-
-        <div class="job-card">
-            <h3>Desarrollador Frontend</h3>
-            <p>Empresa: Tech Solutions</p>
-            <p>Ubicación: Remoto</p>
-            <p>Salario: $3.000.000</p>
-            <button>Aplicar</button>
-        </div>
-
-        <div class="job-card">
-            <h3>Diseñador UX/UI</h3>
-            <p>Empresa: Creative Lab</p>
-            <p>Ubicación: Bogotá</p>
-            <p>Salario: $2.500.000</p>
-            <button>Aplicar</button>
-        </div>
-
-        <div class="job-card">
-            <h3>Analista de Datos</h3>
-            <p>Empresa: Data Corp</p>
-            <p>Ubicación: Cali</p>
-            <p>Salario: $4.200.000</p>
-            <button>Aplicar</button>
-        </div>
-
+  <h2>Empleos destacados</h2>
+  <div class="jobs">
+    <div class="job-card">
+      <h3>Desarrollador Frontend</h3>
+      <p>Empresa: Tech Solutions</p>
+      <p>Ubicación: Remoto</p>
+      <p>Salario: $3.000.000</p>
+      <button>Aplicar</button>
     </div>
+    <div class="job-card">
+      <h3>Diseñador UX/UI</h3>
+      <p>Empresa: Creative Lab</p>
+      <p>Ubicación: Bogotá</p>
+      <p>Salario: $2.500.000</p>
+      <button>Aplicar</button>
+    </div>
+    <div class="job-card">
+      <h3>Analista de Datos</h3>
+      <p>Empresa: Data Corp</p>
+      <p>Ubicación: Cali</p>
+      <p>Salario: $4.200.000</p>
+      <button>Aplicar</button>
+    </div>
+  </div>
 </section>
 
 <section class="cta">
-    <h2>¿Eres empresa?</h2>
-    <p>Publica tus vacantes y encuentra talento rápidamente</p>
-    <button>Publicar empleo</button>
+  <h2>¿Eres empresa?</h2>
+  <p>Publica tus vacantes y encuentra talento rápidamente</p>
+  <button>Publicar empleo</button>
 </section>
 
 <footer>
-    
-    © 2026 WorkSite | Todos los derechos reservados
+  © 2026 WorkSite | Todos los derechos reservados
 </footer>
+
+<script src="Js/inicio2.js"></script>
 
 </body>
 </html>
