@@ -1,4 +1,5 @@
 window.addEventListener("DOMContentLoaded", function () {
+    
     const nombre   = localStorage.getItem("nombreUsuario")   || "";
     const apellido = localStorage.getItem("apellidoUsuario") || "";
 

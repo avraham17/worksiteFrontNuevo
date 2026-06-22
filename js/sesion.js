@@ -5,12 +5,12 @@ function cbError(error) {
 }
 
 function cargarUsuario(response) {
-    console.log(response.data);
+    console.log("Datos completos:", response.data);
     
     localStorage.setItem("idUsuario", response.data.id);
     localStorage.setItem("correoUsuario", response.data.correoElectronico);
-    localStorage.setItem("nombreUsuario", response.data.nombre);  
-    localStorage.setItem("apellidoUsuario", response.data.apellido);
+    localStorage.setItem("nombreUsuario", response.data.nombres);  
+    localStorage.setItem("apellidoUsuario", response.data.apellidos);
     window.location.href = "inicio 2.html";
 }
 
