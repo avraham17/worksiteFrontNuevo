@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perfil Laboral - WorkSite</title>
+  <title>Perfil Empresa - WorkSite</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/perfil.css">
 </head>
@@ -47,8 +47,8 @@
 
 <div class="hero-banner">
   <div class="hero-overlay">
-    <h1>Perfil personal</h1>
-    <p>Administra tu perfil, detalles de tu información personal</p>
+    <h1>Perfil Empresarial</h1>
+    <p>Administra y detalla tu información</p>
   </div>
 </div>
 
@@ -58,25 +58,24 @@
     <div class="foto-perfil-row">
       <img src="assets/mm.avif" alt="Foto de perfil" class="foto-mini" id="fotoPreview">
       <div>
-        <p class="foto-nombre" id="nombreMostrar">Tu nombre</p>
-        <p class="foto-cargo" id="cargoMostrar">Tu cargo</p>
+        <p class="foto-nombre" id="nombreMostrar">Nombre de la empresa</p>
+        <p class="foto-cargo" id="cargoMostrar">sector empresarial</p>
         <label class="btn-foto" for="inputFoto">📷 Cambiar foto</label>
         <input type="file" id="inputFoto" accept="image/*" style="display:none" onchange="previewFoto(event)">
       </div>
     </div>
   </div>
 
+  <form id="formRegistro" ></form>
   <section class="datos">
     <div class="datos-grid">
-      <div class="item"><strong>Nombre:</strong> <span id="mostrarNombre"></span></div>
-      <div class="item"><strong>Cédula:</strong> <span id="mostrarCedula"></span></div>
-      <div class="item"><strong>Ciudad:</strong> <span id="mostrarCiudad"></span></div>
-      <div class="item"><strong>Fecha de Nacimiento:</strong> <span id="mostrarfechaNacimiento"></span></div>
-      <div class="item"><strong>Número Telefónico:</strong> <span id="mostrarTelefono"></span></div>
+      <div class="item"><strong>Nombre de la empresa:</strong> <span id="mostrarNombre"></span></div>
+        
+      <div class="item"><strong>Ubicación:</strong> <span id="mostrarUbicacion"></span></div>
+      <div class="item"><strong>Sector:</strong> <span id="mostrarSector"></span></div>
+      <div class="item"><strong>Telefono:</strong> <span id="mostrarTelefono"></span></div>
       <div class="item"><strong>Correo Electrónico:</strong> <span id="mostrarCorreo"></span></div>
-      <div class="item"><strong>Ocupación u Oficio:</strong> <span id="mostrarOcupacion"></span></div>
-      <div class="item"><strong>Nivel de Estudio:</strong> <span id="mostrarnivelEstudio"></span></div>
-      <div class="item"><strong>Descripción:</strong> <span id="mostrarDescripcion"></span></div>
+
     </div>
 
     <div class="acciones">
@@ -92,10 +91,6 @@
         <button class="danger" id="btneliminar">Eliminar</button>
       </div>
     </div>
-
-</main>
-
-<!-- Modal Editar -->
 <div class="modal fade" id="modalEditar" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -103,31 +98,22 @@
         <h2 class="modal-title">Editar Perfil</h2>
       </div>
       <div class="modal-body">
-        <input type="text" id="editNombres" class="form-control mb-2" placeholder="Nombres">
-        <input type="text" id="editApellidos" class="form-control mb-2" placeholder="Apellidos">
-        <input type="text" id="editCorreo" class="form-control mb-2" placeholder="Correo electrónico">
+        <input type="text" id="editNombre" class="form-control mb-2" placeholder="Nombre de la empresa">
+        <input type="text" id="editCorreo" class="form-control mb-2" placeholder="Correo">
+        <input type="text" id="editUbicacion" class="form-control mb-2" placeholder="ubicación">
         <input type="text" id="editTelefono" class="form-control mb-2" placeholder="Teléfono">
-        <select id="editTipoId" class="form-control mb-2">
-          <option value="">Tipo de documento</option>
-          <option value="CC">Cédula de Ciudadanía</option>
-          <option value="CE">Cédula de Extranjería</option>
-        </select>
-        <input type="text" id="editNuDocumento" class="form-control mb-2" placeholder="Número de documento">
-        <input type="password" id="editContrasenia" class="form-control mb-2" placeholder="Contraseña">
-        <input type="text" id="editgenero" class="form-control mb-2" placeholder="Género">
-        <input type="text" id="editAnios" class="form-control mb-2" placeholder="Años de experiencia">
-        <input type="date" id="editFecha" class="form-control mb-2">
-        <input type="text" id="editCiudad" class="form-control mb-2" placeholder="Ciudad">
-        <input type="text" id="editCargo" class="form-control mb-2" placeholder="Cargo Profesional">
-        <input type="text" id="editEstudio" class="form-control mb-2" placeholder="Nivel de Estudios">
-        <textarea id="editDescripcion" class="form-control" placeholder="Descripción"></textarea>
-      </div>
+        <input type="text" id="editSector" class="form-control mb-2" placeholder="sector">
+        
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="guardarEdicion">Guardar Cambios</button>
+        <button type="button" class="btn btn-primary" id="guardarCambios">Guardar Cambios</button></form>
       </div>
     </div>
   </div>
 </div>
+</main>
+
+
+
 
 <footer>
   © 2026 WorkSite | Todos los derechos reservados
@@ -137,8 +123,10 @@
   integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
   crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="Js/perfil.js"></script>
 <script src="Js/core.js"></script>
+
+<script src="Js/perfil-empresa.js"></script>
+
 
 </body>
 </html>
