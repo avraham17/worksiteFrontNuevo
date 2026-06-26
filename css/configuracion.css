@@ -424,10 +424,6 @@ nav {
   pointer-events: none;
 }
 
-.toast.show {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 footer {
   text-align: center;

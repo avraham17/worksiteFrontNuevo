@@ -83,21 +83,21 @@
         <h3 class="card-title">🔑 Cambiar contraseña</h3>
         <div class="field">
           <label>Contraseña actual</label>
-          <input type="password" id="passActual" placeholder="••••••••">
+          <input id="passActual" type="password" placeholder="••••••••">
         </div>
         <div class="grid-2" style="margin-top:14px">
           <div class="field">
             <label>Nueva contraseña</label>
-            <input type="password" id="passNueva" placeholder="••••••••">
+            <input id="passNueva" type="password" placeholder="••••••••">
           </div>
           <div class="field">
             <label>Confirmar contraseña</label>
-            <input type="password" id="passConfirmar" placeholder="••••••••">
+            <input id="passConfirmar" type="password" placeholder="••••••••">
           </div>
         </div>
         <div id="passMsg" class="msg-info" style="display:none"></div>
         <div class="btn-row" style="margin-top:20px">
-          <button class="btn-primario" onclick="cambiarPassword()">🔒 Actualizar contraseña</button>
+          <button id="btnActualizarPass" class="btn-primario">🔒 Actualizar contraseña</button>
         </div>
       </div>
 
@@ -136,15 +136,14 @@
       </div>
 
       <div class="btn-row">
-        <button class="btn-primario" onclick="showToast('✅ Preferencias guardadas')">💾 Guardar preferencias</button>
+        <button class="btn-primario" >💾 Guardar preferencias</button>
       </div>
     </div>
 
     
     <div id="tab-apariencia" class="tab-panel">
       <div class="panel-header">
-        <h2>Apariencia</h2>
-        <p>Personaliza cómo se ve WorkSite para ti</p>
+       
       </div>
 
       
@@ -211,7 +210,7 @@
       </div>
 
       <div class="btn-row">
-        <button class="btn-primario" onclick="showToast('✅ Configuración de privacidad guardada')">💾 Guardar</button>
+        <button class="btn-primario" >💾 Guardar</button>
       </div>
     </div>
 
@@ -220,7 +219,7 @@
 </main>
 
 
-<div class="toast" id="toast"></div>
+
 
 <footer>
   © 2026 WorkSite | Todos los derechos reservados
