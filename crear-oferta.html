@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publicar oferta - WorkSite</title>
+  <link rel="stylesheet" href="css/crear-oferta.css">
+ 
+</head>
+<body>
+
+<header>
+  <div class="logo">WorkSite</div>
+  <nav>
+    <a href="inicio 2.html" class="nav-link">Inicio</a>
+    <div class="menu-item">
+      <a href="#" class="nav-link">Ofertas <span class="arrow">▾</span></a>
+      <div class="submenu">
+        <a href="#"><span>📢</span> Publicar oferta</a>
+        <a href="aplicar-oferta.html"><span>💼</span> Aplicar a oferta</a>
+      </div>
+    </div>
+    <div class="menu-item">
+      <a href="#" class="nav-link">Empresas <span class="arrow">▾</span></a>
+      <div class="submenu">
+        <a href="empresa.html"><span>🏢📝</span> Registro</a>
+        <a href="perfil-empresa.html"><span>🏢</span> Perfil empresarial</a>
+        <a href="#"><span>🛠</span> Productos y servicios</a>
+      </div>
+    </div>
+    <div class="menu-item">
+      <a href="#" class="nav-link">Acerca de nosotros <span class="arrow">▾</span></a>
+    </div>
+    <div class="menu-item">
+      <a href="#" class="nav-link">
+        <div class="avatar">TS</div>
+        <span class="arrow">▾</span>
+      </a>
+      <div class="submenu">
+        <a href="perfil.html"><span>👤</span> Mi perfil</a>
+        <a href="configuracion.html"><span>⚙️</span> Configuración</a>
+        <div class="divider-nav"></div>
+        <a href="sesion.html" class="danger"><span>🚪</span> Cerrar sesión</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+<div class="breadcrumb">
+  <a href="inicio 2.html">Inicio</a>
+  <span>›</span>
+  <a href="#">Ofertas</a>
+  <span>›</span>
+  Publicar oferta
+</div>
+
+
+<div class="hero-banner">
+  <div class="hero-badge">📢 Panel de empresa</div>
+  <h1>Publicar nueva oferta</h1>
+  <div class="sub">Tech Solutions S.A.S · Completa el formulario y llega a miles de candidatos</div>
+</div>
+
+<div class="page">
+
+  <div class="info-box">
+    <span class="ib-icon">💡</span>
+    <span>Las ofertas con descripción completa y salario visible reciben <strong>3× más postulaciones</strong>. Los campos con <strong style="color:#ef4444">*</strong> son obligatorios.</span>
+  </div>
+
+  <form action="#" method="POST">
+
+
+    <div class="card">
+      <div class="card-title">📌 Datos principales</div>
+      <div class="form-grid">
+
+        
+        <div class="form-group span-2">
+          <label for="titulo">Título del cargo <span class="req">*</span></label>
+          <input type="text" id="titulo" name="titulo"
+            placeholder="Ej: Desarrollador Frontend Senior"
+            maxlength="100" required>
+        </div>
+
+        
+        <div class="form-group">
+          <label for="empresa">Empresa <span class="req">*</span></label>
+          <input type="text" id="empresa" name="empresa"
+            placeholder="Ej: Tech Solutions S.A.S" required>
+        </div>
+
+      
+        <div class="form-group">
+          <label for="sector">Sector / Área <span class="req">*</span></label>
+          <select id="sector" name="sector" required>
+            <option value="" disabled selected>Seleccionar sector</option>
+            <option>Tecnología · Software</option>
+            <option>Marketing y Publicidad</option>
+            <option>Finanzas y Contabilidad</option>
+            <option>Recursos Humanos</option>
+            <option>Diseño y Creatividad</option>
+            <option>Ventas y Comercial</option>
+            <option>Logística y Transporte</option>
+            <option>Salud y Medicina</option>
+            <option>Educación</option>
+            <option>Otro</option>
+          </select>
+        </div>
+
+       
+        <div class="form-group">
+          <label for="ubicacion">Ubicación <span class="req">*</span></label>
+          <input type="text" id="ubicacion" name="ubicacion"
+            placeholder="Ej: Bogotá, Colombia" required>
+        </div>
+
+        
+        <div class="form-group">
+          <label for="modalidad">Modalidad <span class="req">*</span></label>
+          <select id="modalidad" name="modalidad" required>
+            <option value="" disabled selected>Seleccionar modalidad</option>
+            <option value="remoto">🌐 Remoto</option>
+            <option value="presencial">🏢 Presencial</option>
+            <option value="hibrido">🔀 Híbrido</option>
+          </select>
+        </div>
+
+      
+        <div class="form-group">
+          <label for="fechaDePublicacion">Fecha de publicación <span class="req">*</span></label>
+          <input type="date" id="fechaDePublicacion" name="fechaDePublicacion" required>
+        </div>
+
+       
+        <div class="form-group">
+          <label for="estado">Estado <span class="req">*</span></label>
+          <select id="estado" name="estado" required>
+            <option value="activa">🟢 Activa – publicar de inmediato</option>
+            <option value="borrador">📝 Borrador – guardar sin publicar</option>
+            <option value="pausada">⏸ Pausada</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+
+    
+    <div class="card">
+      <div class="card-title">📋 Descripción del cargo</div>
+      <div class="form-grid cols-1">
+
+        <div class="form-group">
+          <label for="descripcion">Descripción general <span class="req">*</span></label>
+          <textarea id="descripcion" name="descripcion"
+            placeholder="Describe el rol, el equipo y el impacto que tendrá el candidato…"
+            rows="5" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="responsabilidades">Responsabilidades <span class="req">*</span></label>
+          <textarea id="responsabilidades" name="responsabilidades"
+            placeholder="• Desarrollar componentes de interfaz reutilizables&#10;• Colaborar con el equipo de diseño&#10;• Escribir pruebas unitarias…"
+            rows="5" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="requisitos">Requisitos  <span class="req">*</span></label>
+          <textarea id="requisitos" name="requisitos"
+            placeholder="• 2+ años de experiencia con React&#10;• Dominio de HTML5 y CSS3&#10;• Experiencia con TypeScript…"
+            rows="4" required></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    
+    <div class="card">
+      <div class="card-title">💰 Salario y condiciones</div>
+      <div class="form-grid">
+
+        
+        <div class="form-group span-2">
+          <label>Salario (COP / mes) <span class="req">*</span></label>
+          <div class="salary-row">
+            <input id="salario" type="number" name="salario" placeholder=" Ej: 3000000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="jornada">Jornada <span class="req">*</span></label>
+          <select id="jornada" name="jornada" required>
+            <option value="" disabled selected>Seleccionar jornada</option>
+            <option>Tiempo completo</option>
+            <option>Medio tiempo</option>
+            <option>Por horas</option>
+            <option>Freelance / Proyecto</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="contrato">Tipo de contrato <span class="req">*</span></label>
+          <select id="contrato" name="contrato" required>
+            <option value="" disabled selected>Seleccionar tipo</option>
+            <option>Término indefinido</option>
+            <option>Término fijo</option>
+            <option>Prestación de servicios</option>
+            <option>Obra o labor</option>
+            <option>Aprendizaje / Pasantía</option>
+          </select>
+        </div>
+
+        <div class="form-group span-2">
+          <label for="beneficios">Beneficios adicionales <span class="hint">Opcional</span></label>
+          <input type="text" id="beneficios" name="beneficios"
+            placeholder="Ej: Laptop, bono anual, medicina prepagada, viernes flex…">
+        </div>
+
+      </div>
+    </div>
+
+   
+    <div class="card" style="margin-top:20px">
+      <div class="card-title">🎓 Perfil del candidato</div>
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="experiencia">Experiencia requerida <span class="req">*</span></label>
+          <select id="experiencia" name="experiencia" required>
+            <option value="" disabled selected>Seleccionar rango</option>
+            <option>Sin experiencia</option>
+            <option>Menos de 1 año</option>
+            <option>1 – 2 años</option>
+            <option>2 – 4 años</option>
+            <option>4 – 6 años</option>
+            <option>Más de 6 años</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="nivel">Nivel educativo <span class="req">*</span></label>
+          <select id="nivel" name="nivel" required>
+            <option value="" disabled selected>Seleccionar nivel</option>
+            <option>Bachiller</option>
+            <option>Técnico / Tecnólogo</option>
+            <option>Profesional</option>
+            <option>Especialización</option>
+            <option>Maestría</option>
+            <option>Doctorado</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="idioma">Idioma requerido</label>
+          <select id="idioma" name="idioma">
+            <option value="">No requerido</option>
+            <option>Inglés básico</option>
+            <option>Inglés intermedio</option>
+            <option>Inglés avanzado / Bilingüe</option>
+            <option>Portugués</option>
+            <option>Francés</option>
+            <option>Otro</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="vacantes">Número de vacantes <span class="req">*</span></label>
+          <input type="number" id="vacantes" name="vacantes"
+            placeholder="Ej: 2" min="1" max="999" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cierre">Fecha de cierre <span class="req">*</span></label>
+          <input type="date" id="cierre" name="cierre" required>
+        </div>
+
+        <div class="form-group span-2">
+          <label for="habilidades">Habilidades clave <span class="hint">Separadas por coma</span></label>
+          <input type="text" id="habilidades" name="habilidades"
+            placeholder="Ej: React, TypeScript, CSS, Git, Figma">
+          <span class="tags-note">💡 Añadir habilidades relevantes mejora la visibilidad de tu oferta.</span>
+        </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="preview-strip">
+      <div>
+        <div class="ps-label">👁 Vista previa</div>
+        <div class="ps-sub">Revisa cómo verán tu oferta los candidatos antes de publicar.</div>
+      </div>
+      <a href="aplicar-oferta.html" class="btn-preview">Ver vista previa →</a>
+    </div>
+
+
+    <div class="form-actions">
+      <a href="#" class="btn-secondary">← Cancelar</a>
+      <div class="actions-right">
+        <button type="submit" name="_accion" value="borrador" class="btn-draft">💾 Guardar borrador</button>
+        <button id="botonPublicar" type="submit" name="_accion" value="publicar" class="btn-primary">📢 Publicar oferta →</button>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
+<footer>© 2026 WorkSite | Todos los derechos reservados</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="Js/core.js"></script>
+<script src="Js/crear-oferta.js"></script>
+
+
+</body>
+</html>
