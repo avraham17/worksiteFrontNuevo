@@ -90,6 +90,11 @@ var onClickButton = function (e) {
     isFormValid = false;
   }
 
+  if ($("#rol").val() === "") {
+    $("#rol").addClass("error");
+    isFormValid = false;
+  }
+
   if (!isFormValid) {
     alert("Formulario incompleto!");
     return;
@@ -110,6 +115,7 @@ var onClickButton = function (e) {
     "cargo": $("#Cargo").val (),
     "estudio": $("#Estudio").val (),
     "descripcion": $("#Descripcion").val (),
+    "rolNombre": $("#rol").val (),
     
   };
 
@@ -128,10 +134,10 @@ callApi (base_url, method, data, cbSuccess, cbError);
 
 function cbSuccess (data)  {   
   alert("Registro guardado correctamente");
-
     $("#formRegistro")[0].reset();
 
     localStorage.setItem("idUsuario", data.data.id);
+    localStorage.setItem("rol", data.data.rol);                                             
     window.location.href = "sesion.html";
 }
 

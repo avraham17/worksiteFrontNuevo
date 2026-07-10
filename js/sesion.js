@@ -11,6 +11,7 @@ function cargarUsuario(response) {
     localStorage.setItem("correoUsuario", response.data.correoElectronico);
     localStorage.setItem("nombreUsuario", response.data.nombres);  
     localStorage.setItem("apellidoUsuario", response.data.apellidos);
+    localStorage.setItem("rol", response.data.rolNombre);
     window.location.href = "inicio 2.html";
 }
 

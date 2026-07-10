@@ -77,7 +77,14 @@
 
             <div>
                 <label>Nivel de Estudios</label>
-                <input type="text" id="Estudio" name="estudio" required>
+                <select id="Estudio" name="estudio" required>
+                    <option value="" disabled selected>Selecciona tu nivel de estudios...</option>
+                    <option value="primaria">Primaria</option>
+                    <option value="secundaria">Secundaria</option>
+                    <option value="bachillerato">Bachillerato o Preparatoria</option>
+                    <option value="universidad">Universidad / Licenciatura</option>
+                    <option value="posgrado">Posgrado / Maestría / Doctorado</option>
+                </select>
             </div>
 
              <div>
@@ -87,12 +94,13 @@
 
             <div>
                 <label>Años de experiencia</label>
-                <input type="text" id="experiencia" name="experiencia" required>
-            </div>
-
-            <div>
-                <label>Hoja de vida (PDF)</label>
-                     <input type="file" id="cv" name="cv" accept=".pdf">
+                <select type="text" id="experiencia" name="experiencia" required>
+                    <option value="" disabled selected>Selecciona tu experiencia...</option>
+                    <option value="0-1">0-1 años</option>
+                    <option value="1-3">1-3 años</option>
+                    <option value="3-5">3-5 años</option>
+                    <option value="5+">5+ años</option>
+                </select>
             </div>
 
             <div>
@@ -106,6 +114,14 @@
             </div>
         </div>
 
+           <div>    
+                <label>Tipo de cuenta</label>
+                <select id="rol" name="rol" required>
+                    <option value="" disabled selected>Seleccione una opción</option>
+                    <option value="CANDIDATO">CANDIDATO</option>
+                    <option value="EMPRESA">EMPRESA</option>
+                </select>   
+            </div>
           <button  id="botonRegistrarse"  type="button"  class="bntn bnt-primary" >Registrarse</button>
     </form>
 

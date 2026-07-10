@@ -1,61 +1,45 @@
-var registros = [];
-
-$(function (){
-
-$("#titulo, #empresa, #sector, #ubicacion, #cierre, #modalidad, #fechaDePublicacion, #estado, #descripcion, #responsabilidades, #requisitos, #salario, #jornada, #contrato, #beneficios, #experiencia, #nivel, #idioma, #vacantes").on("change", onChangeInputWithErrorClass);
-$("#botonPublicar").click(onClickButton);
-
-});
-
-var onChangeInputWithErrorClass = function (e) {
-  removeClassError(e.target);
-}
-
-    var onClickButton = function (e) {
-  e.preventDefault();
-
-    var newRegistro = {
-    "titulo": $("#titulo").val (),
-    "empresa": $("#empresa").val (),
-    "sector": $("#sector").val (),
-    "ubicacion": $("#ubicacion").val (),
-    "modalidad": $("#modalidad").val (),
-    "fechaDePublicacion": $("#fechaDePublicacion").val (),
-    "estado": $("#estado").val (),
-    "descripcion": $("#descripcion").val (),
-    "responsabilidades": $("#responsabilidades").val (),
-    "requisitos": $("#requisitos").val (),
-    "salario": $("#salario").val (),
-    "jornada": $("#jornada").val (),
-    "tipoDeContrato": $("#contrato").val (),
-    "experiencia": $("#experiencia").val (),
-    "nivelEducativo": $("#nivel").val (),
-    "numOfertas": $("#vacantes").val (),
-    "fechaDeCierre": $("#cierre").val (),
+$(function () {
     
-  };
+    var rol = localStorage.getItem("rol");
+    if (rol !== "EMPRESA") {
+        alert("No tienes permiso para publicar ofertas");
+        window.location.href = "inicio 2.html";
+    }
 
-  saveData (newRegistro);
+    $("#botonPublicar").on("click", function (e) {
+        e.preventDefault();
 
-}
+        var nuevaOferta = {
+        "titulo": $("#titulo").val(),
+        "descripcion": $("#descripcion").val(),
+        "sector": $("#sector").val(),
+        "modalidad": $("#modalidad").val(),
+        "responsabilidades": $("#responsabilidades").val(),
+        "requisitos": $("#requisitos").val(),
+        "jornada": $("#jornada").val(),
+        "tipoDeContrato": $("#contrato").val(),
+        "experiencia": $("#experiencia").val(),
+        "nivelEducativo": $("#nivel").val(),
+        "numOfertas": $("#vacantes").val(),
+        "fechaDeCierre": $("#cierre").val(),
+        "empresa": $("#empresa").val(),
+        "salario": parseFloat($("#salario").val()),
+        "fechaDePublicacion": $("#fechaDePublicacion").val(),
+        "ubicacion": $("#ubicacion").val(),
+        "estado": $("#estado").val()
+    };
 
-function saveData (data) {
-var base_url = "http://localhost:8080/oferta";
-var method = "POST";
-callApi (base_url, method, data, cbSuccess, cbError);
+    callApi(
+        "http://localhost:8080/oferta", "POST",nuevaOferta,
 
-}
-
-function cbSuccess (data)  {   
-  alert("Registro de empresa guardado correctamente");
-     console.log(data);
-    $("#botonPublicar").closest("form")[0].reset();
-
-
-    localStorage.setItem("idUsuario", data.data.id);
-    window.location.href = "inicio 2.html";
-}
-
-function cbError (data)  {
-  alert(JSON.stringify(data));
-}
+        
+        function (response) {
+            alert("Oferta publicada correctamente");
+            window.location.href = "aplicar-oferta.html";
+        },
+        function (error) {
+            alert("Error al publicar la oferta: " + JSON.stringify(error));
+        }
+    );
+    });
+});
