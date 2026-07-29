@@ -1,11 +1,11 @@
+var ofertaActual = null; // guardamos la oferta cargada para usarla al postularse
+
 $(function () {
 
-    // Toma el id de la oferta desde la URL: aplicar-oferta.html?id=1
     var params = new URLSearchParams(window.location.search);
     var idOferta = params.get("id");
 
     if (!idOferta) {
-        // Si no hay id, carga la primera oferta por defecto
         idOferta = 1;
     }
 
@@ -16,10 +16,13 @@ $(function () {
         cargarOferta,
         function (error) {
             console.log("Error al cargar oferta:", error);
+            $("#ofTitulo").text("No se pudo cargar la oferta");
         }
     );
 
-    $("#btnPostular").on("click", function () {
+    $("#btnPostular").on("click", function (e) {
+        e.preventDefault();
+
         var idUsuario = localStorage.getItem("idUsuario");
 
         if (!idUsuario) {
@@ -28,10 +31,17 @@ $(function () {
             return;
         }
 
+        if (!ofertaActual) {
+            alert("La oferta aún no ha cargado, intenta de nuevo en un momento");
+            return;
+        }
+
+        $("#btnPostular").css("pointer-events", "none").text("Enviando...");
+
         var postulacion = {
-            "oferta": idOferta,
-            "candidato": idUsuario,
-            "fechaPostulacion": new Date().toISOString().split("T")[0], // fecha de hoy
+            "idOferta": ofertaActual.id,
+            "idCandidato": parseInt(idUsuario),
+            "fechaPostulacion": new Date().toISOString().split("T")[0],
             "estadoPostulacion": "PENDIENTE"
         };
 
@@ -41,9 +51,14 @@ $(function () {
             postulacion,
             function (response) {
                 alert("Te has postulado exitosamente");
+                window.location.href = "perfil.html";
             },
             function (error) {
-                alert("Error al postularse: " + JSON.stringify(error));
+                $("#btnPostular").css("pointer-events", "auto").text("Postularme ahora →");
+
+                // El backend devuelve un mensaje claro si ya te habías postulado antes
+                var mensaje = (error && error.message) ? error.message : JSON.stringify(error);
+                alert("Error al postularse: " + mensaje);
             }
         );
     });
@@ -51,49 +66,63 @@ $(function () {
 
 function cargarOferta(response) {
     var o = response.data;
+    ofertaActual = o; // se guarda para usarlo al postularse
     console.log(o);
 
-    // Encabezado
-    $(".hero-banner h1").text(o.titulo);
-    $(".hero-banner .sub").text(o.empresa + " · " + o.modalidad + " · Publicada el " + o.fechaDePublicacion);
+    var salarioTexto = o.salario
+        ? "$" + o.salario.toLocaleString("es-CO") + " / mes"
+        : "Salario a convenir";
 
-    // Info principal
-    $(".company-name-lbl").text(o.empresa);
-    $(".job-title-big").text(o.titulo);
-    $(".salary-badge").text("💰 $" + o.salario.toLocaleString() + " / mes");
+    // Hero banner
+    $("#ofTitulo").text(o.titulo);
+    $("#ofSubtitulo").text(o.empresa + " · " + o.modalidad + " · Publicada el " + o.fechaDePublicacion);
+    $("#ofBadgeEstado").text(o.estado === "activa" ? "🟢 Oferta activa" : "⏸ " + o.estado);
+
+    // Card principal
+    $("#ofEmpresa").text(o.empresa);
+    $("#ofUbicacion").text(o.ubicacion);
+    $("#ofTituloCard").text(o.titulo);
+    $("#ofTagEstado").text(o.estado === "activa" ? "🟢 Activa" : "⏸ " + o.estado);
+    $("#ofTagJornada").text(o.jornada);
+    $("#ofTagModalidad").text(o.modalidad);
+    $("#ofTagSector").text(o.sector);
+    $("#ofSalario").text("💰 " + salarioTexto);
 
     // Meta grid
-    var metas = $(".meta-item");
-    $(metas[0]).text("📍 " + o.ubicacion);
-    $(metas[1]).text("🎓 " + o.nivelEducativo);
-    $(metas[2]).text("🕐 " + o.jornada);
-    $(metas[3]).text("📅 Cierra: " + o.fechaDeCierre);
-    $(metas[4]).text("👥 " + o.numOfertas + " vacantes disponibles");
-    $(metas[5]).text("📂 " + o.sector);
+    $("#ofMetaUbicacion").text(o.ubicacion);
+    $("#ofMetaNivel").text(o.nivelEducativo);
+    $("#ofMetaJornada").text(o.jornada);
+    $("#ofMetaCierre").text(o.fechaDeCierre);
+    $("#ofMetaVacantes").text(o.numOfertas);
 
-    // Detalles tabla
-    var cells = $(".d-value");
-    $(cells[0]).text(o.tipoDeContrato);
-    $(cells[1]).text(o.modalidad);
-    $(cells[2]).text(o.jornada);
-    $(cells[3]).text(o.experiencia);
-    $(cells[4]).text(o.nivelEducativo);
-    $(cells[5]).text(o.sector);
-    $(cells[6]).text("$" + o.salario.toLocaleString() + " COP / mes");
+    // Barra de postulación
+    $("#ofFechaCierreBadge").text(o.fechaDeCierre);
+    $("#ofVacantesTxt").text(o.numOfertas);
 
-    // Descripción, responsabilidades, requisitos
-    $(".prose p:first").text(o.descripcion);
-    $(".card-title:contains('Responsabilidades')").next("ul").html(
-        o.responsabilidades.split("\n").map(r => `<li>${r}</li>`).join("")
-    );
-    $(".card-title:contains('Requisitos')").next("ul").html(
-        o.requisitos.split("\n").map(r => `<li>${r}</li>`).join("")
-    );
+    // Detalles
+    $("#ofDetalleContrato").text(o.tipoDeContrato);
+    $("#ofDetalleModalidad").text(o.modalidad);
+    $("#ofDetalleJornada").text(o.jornada);
+    $("#ofDetalleExperiencia").text(o.experiencia);
+    $("#ofDetalleNivel").text(o.nivelEducativo);
+    $("#ofDetalleSector").text(o.sector);
+    $("#ofDetalleSalario").text(salarioTexto);
+    $("#ofDetallePublicacion").text(o.fechaDePublicacion);
 
-    // Badge estado
-    if (o.estado === "activa") {
-        $(".tag-green").text("🟢 Activa");
-    } else {
-        $(".tag-green").text("⏸ " + o.estado);
-    }
+    // Descripción
+    $("#ofDescripcion").text(o.descripcion);
+
+    var responsabilidadesHtml = (o.responsabilidades || "")
+        .split("\n")
+        .filter(function (linea) { return linea.trim() !== ""; })
+        .map(function (linea) { return "<li>" + linea + "</li>"; })
+        .join("");
+    $("#ofResponsabilidades").html(responsabilidadesHtml);
+
+    var requisitosHtml = (o.requisitos || "")
+        .split("\n")
+        .filter(function (linea) { return linea.trim() !== ""; })
+        .map(function (linea) { return "<li>" + linea + "</li>"; })
+        .join("");
+    $("#ofRequisitos").html(requisitosHtml);
 }

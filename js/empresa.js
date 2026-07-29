@@ -20,6 +20,7 @@ $("#botonRegistrarse").click(onClickButton);
     "ubicacion": $("#ciudad").val (),
     "telefono": $("#telefono").val (),
     "correo": $("#correo").val (),
+    "idUsuario": parseInt(localStorage.getItem("idUsuario"))
     
   };
 

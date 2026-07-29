@@ -24,7 +24,6 @@
     <div class="menu-item">
       <a href="#" class="nav-link">Empresas <span class="arrow">▾</span></a>
       <div class="submenu">
-        <a href="empresa.html"><span>🏢📝</span> Registro</a>
         <a href="perfil-empresa.html"><span>🏢</span> Perfil empresarial</a>
         <a href="#"><span>🛠</span> Productos y servicios</a>
       </div>
@@ -41,7 +40,7 @@
         <a href="perfil.html"><span>👤</span> Mi perfil</a>
         <a href="configuracion.html"><span>⚙️</span> Configuración</a>
         <div class="divider-nav"></div>
-        <a href="sesion.html" class="danger"><span>🚪</span> Cerrar sesión</a>
+        <a  id="botonCerrarSesion" class="danger"><span>🚪</span> Cerrar sesión</a>
       </div>
     </div>
   </nav>
@@ -122,6 +121,11 @@
 <footer>
   © 2026 WorkSite | Todos los derechos reservados
 </footer>
+
+<script src="js/auth-guard.js"></script>
+<script>
+    requireAuth(["EMPRESA", "ADMIN"]); 
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

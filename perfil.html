@@ -23,7 +23,6 @@
     <div class="menu-item">
       <a href="#" class="nav-link">Empresas <span class="arrow">▾</span></a>
       <div class="submenu">
-        <a href="empresa.html"><span>🏢📝</span> Registro</a>
         <a href="perfil-empresa.html"><span>🏢</span> Perfil empresarial</a>
         <a href="#"><span>🛠</span> Productos y servicios</a>
       </div>
@@ -40,7 +39,7 @@
         <a href="perfil.html"><span>👤</span> Mi perfil</a>
         <a href="configuracion.html"><span>⚙️</span> Configuración</a>
         <div class="divider-nav"></div>
-        <a href="sesion.html" class="danger"><span>🚪</span> Cerrar sesión</a>
+        <a id="botonCerrarSesion" class="danger"><span>🚪</span> Cerrar sesión</a>
       </div>
     </div>
   </nav>
@@ -85,46 +84,82 @@
       <button class="secundario" id="btneditar">Editar</button>
     
     </div>
-  </section>
-<br>
-  <div class="card card-danger">
-        <h3 class="card-title danger-title" >🗑️ Eliminar cuenta permanentemente</h3><br>
-        <p class="danger-desc">Se eliminarán todos tus datos, aplicaciones, historial y perfil. <strong>Esta acción no se puede deshacer.</strong></p>
-       <br>
+     <br>
         <button class="danger" id="btneliminar">Eliminar</button>
       </div>
-    </div>
+  </section>
 
+  <section class="datos" id="seccionPostulaciones" style="display:none;">
+    <h2 style="color:#07286f; margin-bottom:15px;">Mis postulaciones</h2>
+    <div id="listaPostulaciones" class="datos-grid">
+      <!-- Se llena dinámicamente -->
+    </div>
+    <p id="sinPostulaciones" style="display:none; color:#777;">Aún no te has postulado a ninguna oferta.</p>
+  </section>
+
+ 
 </main>
 
-<!-- Modal Editar -->
+
+<!-- Modal: editar perfil -->
 <div class="modal fade" id="modalEditar" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h2 class="modal-title">Editar Perfil</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
-        <input type="text" id="editNombres" class="form-control mb-2" placeholder="Nombres">
-        <input type="text" id="editApellidos" class="form-control mb-2" placeholder="Apellidos">
-        <input type="text" id="editCorreo" class="form-control mb-2" placeholder="Correo electrónico">
-        <input type="text" id="editTelefono" class="form-control mb-2" placeholder="Teléfono">
-        <select id="editTipoId" class="form-control mb-2">
+        <p style="color:#777; font-size:13px; margin-bottom:16px;">Los campos ya están cargados con tu información actual. Solo cambia lo que necesites.</p>
+
+        <label class="form-label" for="editNombres">Nombres</label>
+        <input type="text" id="editNombres" class="form-control mb-3" placeholder="Ej: Juan Carlos">
+
+        <label class="form-label" for="editApellidos">Apellidos</label>
+        <input type="text" id="editApellidos" class="form-control mb-3" placeholder="Ej: Pérez Gómez">
+
+        <label class="form-label" for="editCorreo">Correo electrónico</label>
+        <input type="email" id="editCorreo" class="form-control mb-3" placeholder="Ej: correo@ejemplo.com">
+
+        <label class="form-label" for="editTelefono">Teléfono</label>
+        <input type="tel" id="editTelefono" class="form-control mb-3" placeholder="Ej: 3001234567">
+
+        <label class="form-label" for="editTipoId">Tipo de documento</label>
+        <select id="editTipoId" class="form-control mb-3">
           <option value="">Tipo de documento</option>
           <option value="CC">Cédula de Ciudadanía</option>
           <option value="CE">Cédula de Extranjería</option>
         </select>
-        <input type="text" id="editNuDocumento" class="form-control mb-2" placeholder="Número de documento">
-        <input type="password" id="editContrasenia" class="form-control mb-2" placeholder="Contraseña">
-        <input type="text" id="editgenero" class="form-control mb-2" placeholder="Género">
-        <input type="text" id="editAnios" class="form-control mb-2" placeholder="Años de experiencia">
-        <input type="date" id="editFecha" class="form-control mb-2">
-        <input type="text" id="editCiudad" class="form-control mb-2" placeholder="Ciudad">
-        <input type="text" id="editCargo" class="form-control mb-2" placeholder="Cargo Profesional">
-        <input type="text" id="editEstudio" class="form-control mb-2" placeholder="Nivel de Estudios">
-        <textarea id="editDescripcion" class="form-control" placeholder="Descripción"></textarea>
+
+        <label class="form-label" for="editNuDocumento">Número de documento</label>
+        <input type="text" id="editNuDocumento" class="form-control mb-3" placeholder="Ej: 1234567890">
+
+        <label class="form-label" for="editContrasenia">Contraseña</label>
+        <input type="password" id="editContrasenia" class="form-control mb-3" placeholder="Dejar en blanco para no cambiarla">
+
+        <label class="form-label" for="editgenero">Género</label>
+        <input type="text" id="editgenero" class="form-control mb-3" placeholder="Ej: Masculino, Femenino, Otro">
+
+        <label class="form-label" for="editAnios">Años de experiencia</label>
+        <input type="text" id="editAnios" class="form-control mb-3" placeholder="Ej: 2">
+
+        <label class="form-label" for="editFecha">Fecha de nacimiento</label>
+        <input type="date" id="editFecha" class="form-control mb-3">
+
+        <label class="form-label" for="editCiudad">Ciudad</label>
+        <input type="text" id="editCiudad" class="form-control mb-3" placeholder="Ej: Bogotá">
+
+        <label class="form-label" for="editCargo">Cargo profesional</label>
+        <input type="text" id="editCargo" class="form-control mb-3" placeholder="Ej: Desarrollador Frontend">
+
+        <label class="form-label" for="editEstudio">Nivel de estudios</label>
+        <input type="text" id="editEstudio" class="form-control mb-3" placeholder="Ej: Profesional">
+
+        <label class="form-label" for="editDescripcion">Descripción</label>
+        <textarea id="editDescripcion" class="form-control mb-2" placeholder="Cuéntanos sobre ti..."></textarea>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary" id="guardarEdicion">Guardar Cambios</button>
       </div>
     </div>
@@ -135,6 +170,10 @@
   © 2026 WorkSite | Todos los derechos reservados
 </footer>
 
+<script src="js/auth-guard.js"></script>
+<script>
+    requireAuth(["CANDIDATO", "EMPRESA", "ADMIN"]);
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
   crossorigin="anonymous"></script>

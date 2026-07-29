@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aplicar a oferta - WorkSite</title>
   <link rel="stylesheet" href="css/aplicar-oferta.css">
-  
 </head>
 <body>
 
@@ -23,7 +22,6 @@
     <div class="menu-item">
       <a href="#" class="nav-link">Empresas <span class="arrow">▾</span></a>
       <div class="submenu">
-        <a href="empresa.html"><span>🏢📝</span> Registro</a>
         <a href="perfil-empresa.html"><span>🏢</span> Perfil empresarial</a>
         <a href="#"><span>🛠</span> Productos y servicios</a>
       </div>
@@ -40,71 +38,58 @@
         <a href="perfil.html"><span>👤</span> Mi perfil</a>
         <a href="configuracion.html"><span>⚙️</span> Configuración</a>
         <div class="divider-nav"></div>
-        <a href="sesion.html" class="danger"><span>🚪</span> Cerrar sesión</a>
+        <a id="botonCerrarSesion" class="danger"><span>🚪</span> Cerrar sesión</a>
       </div>
     </div>
   </nav>
 </header>
 
-
-<div class="breadcrumb">
-  <a href="inicio 2.html">Inicio</a>
-  <span>›</span>
-  <a href="#">Tecnología</a>
-  <span>›</span>
-  Desarrollador Frontend
-</div>
-
-
 <div class="hero-banner">
   <div class="hero-banner-inner">
     <div>
-      <div class="hero-badge">💼 Oferta activa</div>
-      <h1>Desarrollador Frontend</h1>
-      <div class="sub">Tech Solutions S.A.S · Remoto · Publicada hace 2 días</div>
+      <div class="hero-badge" id="ofBadgeEstado">💼 Cargando...</div>
+      <h1 id="ofTitulo">Cargando oferta...</h1>
+      <div class="sub" id="ofSubtitulo"></div>
     </div>
-    <a href="postular.html" class="btn-white" style="flex-shrink:0;">Postularme ahora →</a>
   </div>
 </div>
 
-
+<main>
 <div class="page">
 
   <div class="card">
     <div class="job-hero">
       <div class="company-icon">💻</div>
       <div class="job-hero-info">
-        <div class="company-name-lbl">Tech Solutions S.A.S</div>
-        <div class="company-sub-lbl">Software · Bogotá, Colombia · Verificada ✓</div>
-        <div class="job-title-big">Desarrollador Frontend</div>
+        <div class="company-name-lbl" id="ofEmpresa"></div>
+        <div class="company-sub-lbl" id="ofUbicacion"></div>
+        <div class="job-title-big" id="ofTituloCard"></div>
         <div class="tags-row">
-          <span class="tag tag-green">🟢 Activa</span>
-          <span class="tag tag-blue">Tiempo completo</span>
-          <span class="tag tag-blue">🌐 Remoto</span>
-          <span class="tag tag-gray">Publicada hace 2 días</span>
+          <span class="tag tag-green" id="ofTagEstado"></span>
+          <span class="tag tag-blue" id="ofTagJornada"></span>
+          <span class="tag tag-blue" id="ofTagModalidad"></span>
+          <span class="tag tag-gray" id="ofTagSector"></span>
         </div>
-        <div class="salary-badge">💰 $3.000.000 – $3.800.000 / mes</div>
+        <div class="salary-badge" id="ofSalario"></div>
         <div class="meta-grid">
-          <div class="meta-item">📍 Remoto (Colombia)</div>
-          <div class="meta-item">🎓 Profesional / Tecnólogo</div>
-          <div class="meta-item">🕐 Tiempo completo</div>
-          <div class="meta-item">📅 Cierra: 30 Jul 2026</div>
-          <div class="meta-item">👥 2 vacantes disponibles</div>
-          <div class="meta-item">📂 Tecnología · Software</div>
+          <div class="meta-item">📍 <span id="ofMetaUbicacion"></span></div>
+          <div class="meta-item">🎓 <span id="ofMetaNivel"></span></div>
+          <div class="meta-item">🕐 <span id="ofMetaJornada"></span></div>
+          <div class="meta-item">📅 Cierra: <span id="ofMetaCierre"></span></div>
+          <div class="meta-item">👥 <span id="ofMetaVacantes"></span> vacante(s)</div>
         </div>
       </div>
     </div>
   </div>
 
-
   <div class="card">
     <div class="apply-bar">
       <div class="apply-bar-left">
-        <div class="deadline-badge">⏳ Cierra el <strong>30 de julio de 2026</strong> · Quedan 32 días</div>
-        <div class="vacantes-txt">2 vacantes disponibles · 47 personas han aplicado</div>
+        <div class="deadline-badge">⏳ Cierra el <strong id="ofFechaCierreBadge"></strong></div>
+        <div class="vacantes-txt"><span id="ofVacantesTxt"></span> vacante(s) disponible(s)</div>
       </div>
       <div class="apply-bar-right">
-        <a href="postular.html" class="btn-primary">Postularme ahora →</a>
+        <a id="btnPostular" class="btn-primary">Postularme ahora →</a>
         <a href="#" class="btn-secondary">🔖 Guardar</a>
       </div>
     </div>
@@ -115,35 +100,35 @@
     <div class="details-table">
       <div class="detail-cell">
         <div class="d-label">Tipo de contrato</div>
-        <div class="d-value">Término indefinido</div>
+        <div class="d-value" id="ofDetalleContrato"></div>
       </div>
       <div class="detail-cell">
         <div class="d-label">Modalidad</div>
-        <div class="d-value">🌐 Remoto</div>
+        <div class="d-value" id="ofDetalleModalidad"></div>
       </div>
       <div class="detail-cell">
         <div class="d-label">Jornada</div>
-        <div class="d-value">Tiempo completo</div>
+        <div class="d-value" id="ofDetalleJornada"></div>
       </div>
       <div class="detail-cell">
         <div class="d-label">Experiencia requerida</div>
-        <div class="d-value">2 – 4 años</div>
+        <div class="d-value" id="ofDetalleExperiencia"></div>
       </div>
       <div class="detail-cell">
         <div class="d-label">Nivel educativo</div>
-        <div class="d-value">Profesional / Tecnólogo</div>
+        <div class="d-value" id="ofDetalleNivel"></div>
       </div>
       <div class="detail-cell">
         <div class="d-label">Sector</div>
-        <div class="d-value">Tecnología</div>
+        <div class="d-value" id="ofDetalleSector"></div>
       </div>
       <div class="detail-cell">
         <div class="d-label">Salario</div>
-        <div class="d-value green">$3M – $3.8M COP / mes</div>
+        <div class="d-value green" id="ofDetalleSalario"></div>
       </div>
       <div class="detail-cell">
-        <div class="d-label">Idioma requerido</div>
-        <div class="d-value">Inglés intermedio</div>
+        <div class="d-label">Fecha de publicación</div>
+        <div class="d-value" id="ofDetallePublicacion"></div>
       </div>
     </div>
   </div>
@@ -151,141 +136,27 @@
   <div class="card">
     <div class="card-title">📋 Descripción del cargo</div>
     <div class="prose">
-      <p>En <strong>Tech Solutions S.A.S</strong> buscamos un Desarrollador Frontend apasionado por crear interfaces modernas, accesibles y de alto rendimiento. Trabajarás junto a un equipo multidisciplinario para construir productos digitales utilizados por miles de personas en toda Colombia.</p>
-      <p>Esta es una posición <strong>100% remota</strong>. Valoramos la autonomía, la comunicación asertiva y las ganas de aprender y aportar en un ambiente de trabajo flexible y en constante evolución.</p>
-      <p>Serás parte de un equipo ágil que trabaja con metodologías Scrum, iteraciones de dos semanas y una cultura de retroalimentación continua. El impacto de tu trabajo será visible desde el primer día.</p>
+      <p id="ofDescripcion"></p>
     </div>
   </div>
 
-  
   <div class="card">
     <div class="card-title">🎯 Responsabilidades</div>
-    <ul class="bullet-list">
-      <li>Desarrollar y mantener componentes de interfaz reutilizables con React y TypeScript.</li>
-      <li>Colaborar con el equipo de diseño para implementar mockups de forma fiel y accesible.</li>
-      <li>Optimizar el rendimiento de la aplicación (Core Web Vitals, lazy loading, code splitting).</li>
-      <li>Escribir pruebas unitarias y de integración con Jest y Testing Library.</li>
-      <li>Participar en revisiones de código y contribuir a la mejora continua del equipo.</li>
-      <li>Documentar los componentes y mantener Storybook actualizado.</li>
-      <li>Participar en las reuniones de planificación y retrospectivas del equipo Scrum.</li>
-    </ul>
+    <ul class="bullet-list" id="ofResponsabilidades"></ul>
   </div>
 
   <div class="card">
     <div class="card-title">✅ Requisitos</div>
-    <ul class="bullet-list green">
-      <li>2+ años de experiencia en desarrollo frontend con React.</li>
-      <li>Dominio de HTML5, CSS3 (Flexbox, Grid) y JavaScript ES6+.</li>
-      <li>Experiencia con TypeScript y manejo de estado (Redux, Zustand o similar).</li>
-      <li>Conocimiento de principios de accesibilidad web (WCAG 2.1).</li>
-      <li>Capacidad para trabajar de forma autónoma y en equipo remoto.</li>
-      <li>Nivel de inglés intermedio para lectura técnica.</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <div class="card-title">⭐ Deseable (no excluyente)</div>
-    <ul class="bullet-list yellow">
-      <li>Experiencia con Next.js o Vite.</li>
-      <li>Conocimiento básico de Node.js o consumo de APIs REST/GraphQL.</li>
-      <li>Portafolio o repositorio público en GitHub.</li>
-      <li>Experiencia con herramientas de diseño como Figma o Zeplin.</li>
-    </ul>
-  </div>
-
-  
-  <div class="card">
-    <div class="card-title">🎁 Lo que ofrecemos</div>
-    <div class="benefits-grid">
-      <div class="benefit-item"><span class="bi">💰</span> Salario $3.000.000 – $3.800.000 COP según experiencia</div>
-      <div class="benefit-item"><span class="bi">📄</span> Contrato a término indefinido + prestaciones de ley</div>
-      <div class="benefit-item"><span class="bi">🌐</span> Trabajo 100% remoto con horario flexible</div>
-      <div class="benefit-item"><span class="bi">🎯</span> Bono anual por desempeño</div>
-      <div class="benefit-item"><span class="bi">📚</span> Presupuesto anual para cursos y certificaciones</div>
-      <div class="benefit-item"><span class="bi">💻</span> Laptop de última generación por parte de la empresa</div>
-      <div class="benefit-item"><span class="bi">🏥</span> Medicina prepagada después del primer año</div>
-      <div class="benefit-item"><span class="bi">🧘</span> Viernes de media jornada cada dos semanas</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">🏢 Sobre Tech Solutions S.A.S</div>
-    <div class="empresa-row">
-      <div class="empresa-icon">💻</div>
-      <div class="empresa-meta">
-        <div class="en">Tech Solutions S.A.S</div>
-        <div class="es">Software · Bogotá, Colombia · Empresa verificada ✓</div>
-      </div>
-    </div>
-    <div class="empresa-desc">
-      Somos una empresa colombiana de tecnología especializada en el desarrollo de soluciones digitales para el sector financiero y retail. Fundada en 2014, hemos crecido hasta ser un equipo de más de 120 personas en 3 países. Nos mueve la pasión por construir productos que resuelven problemas reales.
-    </div>
-    <div class="empresa-stats">
-      <div class="es-stat"><strong>120+</strong> Empleados</div>
-      <div class="es-stat"><strong>12</strong> Años en el mercado</div>
-      <div class="es-stat"><strong>3</strong> Países</div>
-      <div class="es-stat"><strong>4.6 ⭐</strong> Calificación</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">💼 Empleos similares</div>
-    <div class="similar-list">
-      <a class="mini-job" href="#">
-        <div class="mini-icon mi-pink">🎨</div>
-        <div class="mini-info">
-          <div class="mt">Diseñador UX/UI</div>
-          <div class="mm">Creative Lab · Bogotá · Remoto · Tiempo completo</div>
-        </div>
-        <div class="mini-salary">$2.500.000</div>
-      </a>
-      <a class="mini-job" href="#">
-        <div class="mini-icon mi-teal">📊</div>
-        <div class="mini-info">
-          <div class="mt">Analista de Datos</div>
-          <div class="mm">Data Corp · Cali · Presencial · Tiempo completo</div>
-        </div>
-        <div class="mini-salary">$4.200.000</div>
-      </a>
-      <a class="mini-job" href="#">
-        <div class="mini-icon mi-blue">⚙️</div>
-        <div class="mini-info">
-          <div class="mt">Desarrollador Backend – Node.js</div>
-          <div class="mm">DevPro · Remoto · Tiempo completo</div>
-        </div>
-        <div class="mini-salary">$3.500.000</div>
-      </a>
-      <a class="mini-job" href="#">
-        <div class="mini-icon mi-green">📱</div>
-        <div class="mini-info">
-          <div class="mt">Desarrollador Mobile – React Native</div>
-          <div class="mm">AppFactory · Medellín · Híbrido</div>
-        </div>
-        <div class="mini-salary">$3.200.000</div>
-      </a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">🔗 Compartir esta oferta</div>
-    <div class="share-row">
-      <span>Comparte con alguien que le pueda interesar:</span>
-      <a href="#" class="share-link">🔗 Copiar enlace</a>
-      <a href="#" class="share-link">💼 LinkedIn</a>
-      <a href="#" class="share-link">💬 WhatsApp</a>
-      <a href="#" class="share-link">✉️ Email</a>
-    </div>
-  </div>
-
-  <div class="cta-card">
-    <p>¿Te convence esta oferta? No esperes más, los cupos son limitados.</p>
-    <a href="postular.html" class="btn-white">Postularme ahora →</a>
-    <div class="deadline-txt">⏳ Cierra el 30 de julio · Quedan 32 días</div>
+    <ul class="bullet-list green" id="ofRequisitos"></ul>
   </div>
 
 </div>
+</main>
 
 <footer>© 2026 WorkSite | Todos los derechos reservados</footer>
+
+<script src="js/auth-guard.js"></script>
+<script> requireAuth(["CANDIDATO", "ADMIN"]); </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

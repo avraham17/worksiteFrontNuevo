@@ -1,9 +1,5 @@
 $(function () {
-    var rol = localStorage.getItem("rol");
-    if (rol === "EMPRESA") {
-        $("#btnCrearOferta").css("display", "inline-flex");
-    }
-
+   
     cargarVacantes();
 
     $("#btnFiltrar").on("click", cargarVacantes);

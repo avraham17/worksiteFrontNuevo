@@ -1,45 +1,88 @@
+var idEmpresaActual = null; // se llena desde la BD, no desde localStorage
+
 $(function () {
-    
+
     var rol = localStorage.getItem("rol");
     if (rol !== "EMPRESA") {
         alert("No tienes permiso para publicar ofertas");
         window.location.href = "inicio 2.html";
+        return;
     }
+
+    var idUsuario = localStorage.getItem("idUsuario");
+    if (!idUsuario) {
+        alert("Debes iniciar sesión");
+        window.location.href = "sesion.html";
+        return;
+    }
+
+    // Bloqueamos el botón hasta confirmar que el perfil empresarial existe y cargó bien
+    $("#botonPublicar").prop("disabled", true);
+    $("#empresa").val("Cargando...").prop("readonly", true);
+
+    callApi("http://localhost:8080/empresa", "GET", null, function (response) {
+        var empresas = response.data || [];
+
+        var miEmpresa = empresas.find(function (e) {
+            return String(e.idUsuario) === String(idUsuario);
+        });
+
+        if (!miEmpresa) {
+            alert("Debes completar tu perfil empresarial antes de publicar una oferta");
+            window.location.href = "perfil-empresa.html";
+            return;
+        }
+
+        // Guardamos el id real de la empresa; el nombre solo se muestra como referencia visual
+        idEmpresaActual = miEmpresa.id;
+        $("#empresa").val(miEmpresa.nombre);
+        $("#botonPublicar").prop("disabled", false);
+
+    }, function (error) {
+        console.error("Error al cargar el perfil empresarial:", error);
+        alert("No se pudo cargar tu perfil empresarial. Intenta de nuevo.");
+    });
 
     $("#botonPublicar").on("click", function (e) {
         e.preventDefault();
 
-        var nuevaOferta = {
-        "titulo": $("#titulo").val(),
-        "descripcion": $("#descripcion").val(),
-        "sector": $("#sector").val(),
-        "modalidad": $("#modalidad").val(),
-        "responsabilidades": $("#responsabilidades").val(),
-        "requisitos": $("#requisitos").val(),
-        "jornada": $("#jornada").val(),
-        "tipoDeContrato": $("#contrato").val(),
-        "experiencia": $("#experiencia").val(),
-        "nivelEducativo": $("#nivel").val(),
-        "numOfertas": $("#vacantes").val(),
-        "fechaDeCierre": $("#cierre").val(),
-        "empresa": $("#empresa").val(),
-        "salario": parseFloat($("#salario").val()),
-        "fechaDePublicacion": $("#fechaDePublicacion").val(),
-        "ubicacion": $("#ubicacion").val(),
-        "estado": $("#estado").val()
-    };
-
-    callApi(
-        "http://localhost:8080/oferta", "POST",nuevaOferta,
-
-        
-        function (response) {
-            alert("Oferta publicada correctamente");
-            window.location.href = "aplicar-oferta.html";
-        },
-        function (error) {
-            alert("Error al publicar la oferta: " + JSON.stringify(error));
+        if (!idEmpresaActual) {
+            alert("Aún no se ha cargado tu perfil empresarial, espera un momento");
+            return;
         }
-    );
+
+        var nuevaOferta = {
+            "titulo": $("#titulo").val(),
+            "descripcion": $("#descripcion").val(),
+            "sector": $("#sector").val(),
+            "modalidad": $("#modalidad").val(),
+            "responsabilidades": $("#responsabilidades").val(),
+            "requisitos": $("#requisitos").val(),
+            "jornada": $("#jornada").val(),
+            "tipoDeContrato": $("#contrato").val(),
+            "experiencia": $("#experiencia").val(),
+            "nivelEducativo": $("#nivel").val(),
+            "numOfertas": $("#vacantes").val(),
+            "fechaDeCierre": $("#cierre").val(),
+            "idEmpresa": idEmpresaActual, // relación real, ya no texto libre
+            "salario": parseFloat($("#salario").val()),
+            "fechaDePublicacion": $("#fechaDePublicacion").val(),
+            "ubicacion": $("#ubicacion").val(),
+            "estado": $("#estado").val()
+        };
+
+        console.log("Enviando oferta:", nuevaOferta);
+
+        callApi(
+            "http://localhost:8080/oferta", "POST", nuevaOferta,
+            function (response) {
+                alert("Oferta publicada correctamente");
+                window.location.href = "aplicar-oferta.html";
+            },
+            function (error) {
+                console.error("Error al publicar la oferta:", error);
+                alert("Error al publicar la oferta: " + JSON.stringify(error));
+            }
+        );
     });
 });
