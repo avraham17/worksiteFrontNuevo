@@ -20,18 +20,8 @@ $(function () {
     $("#botonPublicar").prop("disabled", true);
     $("#empresa").val("Cargando...").prop("readonly", true);
 
-    callApi("http://localhost:8080/empresa", "GET", null, function (response) {
-        var empresas = response.data || [];
-
-        var miEmpresa = empresas.find(function (e) {
-            return String(e.idUsuario) === String(idUsuario);
-        });
-
-        if (!miEmpresa) {
-            alert("Debes completar tu perfil empresarial antes de publicar una oferta");
-            window.location.href = "perfil-empresa.html";
-            return;
-        }
+    callApi("http://localhost:8080/empresa/usuario/" + idUsuario, "GET", null, function (response) {
+        var miEmpresa = response.data;
 
         // Guardamos el id real de la empresa; el nombre solo se muestra como referencia visual
         idEmpresaActual = miEmpresa.id;
@@ -39,8 +29,9 @@ $(function () {
         $("#botonPublicar").prop("disabled", false);
 
     }, function (error) {
-        console.error("Error al cargar el perfil empresarial:", error);
-        alert("No se pudo cargar tu perfil empresarial. Intenta de nuevo.");
+        console.log("El usuario aún no tiene perfil empresarial:", error);
+        alert("Debes completar tu perfil empresarial antes de publicar una oferta");
+        window.location.href = "perfil-empresa.html";
     });
 
     $("#botonPublicar").on("click", function (e) {

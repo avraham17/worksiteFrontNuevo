@@ -8,21 +8,14 @@ function cbError(error) {
 }
 
 function loadData() {
-    callApi("http://localhost:8080/empresa", "GET", null, function (response) {
-        var idUsuario = localStorage.getItem("idUsuario");
-        var empresas = response.data || [];
+    var idUsuario = localStorage.getItem("idUsuario");
 
-        var miEmpresa = empresas.find(function (e) {
-            return String(e.idUsuario) === String(idUsuario);
-        });
-
-        if (!miEmpresa) {
-            alert("No se encontró un perfil empresarial asociado a tu cuenta.");
-            return;
-        }
-
-        cargarPerfil({ data: miEmpresa });
-    }, cbError);
+    callApi("http://localhost:8080/empresa/usuario/" + idUsuario, "GET", null, function (response) {
+        cargarPerfil({ data: response.data });
+    }, function (error) {
+        console.log("No se encontró un perfil empresarial asociado a tu cuenta:", error);
+        alert("No se encontró un perfil empresarial asociado a tu cuenta.");
+    });
 }
 
 function updateData(datos) {

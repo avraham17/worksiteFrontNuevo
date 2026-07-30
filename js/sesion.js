@@ -11,31 +11,30 @@ function cargarUsuario(response) {
     localStorage.setItem("nombreUsuario", response.data.nombres);
     localStorage.setItem("apellidoUsuario", response.data.apellidos);
     localStorage.setItem("rol", response.data.rolNombre);
+    localStorage.setItem("token", response.data.token); // necesario para que callApi mande Authorization
 
     if (response.data.rolNombre === "EMPRESA") {
-        cargarNombreEmpresaYRedirigir(response.data.correoElectronico);
+        cargarNombreEmpresaYRedirigir(response.data.id);
     } else {
         window.location.href = "inicio 2.html";
     }
 }
 
-function cargarNombreEmpresaYRedirigir(correoUsuario) {
-    callApi("http://localhost:8080/empresa", "GET", null, function (response) {
-        var empresas = response.data || [];
-        var miEmpresa = empresas.find(function (e) {
-            return e.correo === correoUsuario;
-        });
+function cargarNombreEmpresaYRedirigir(idUsuario) {
+    callApi("http://localhost:8080/empresa/usuario/" + idUsuario, "GET", null, function (response) {
+        var miEmpresa = response.data;
 
         if (miEmpresa) {
             localStorage.setItem("nombreEmpresa", miEmpresa.nombre);
         } else {
-            // El usuario tiene rol EMPRESA pero aún no completó su perfil empresarial
             localStorage.removeItem("nombreEmpresa");
         }
 
         window.location.href = "inicio 2.html";
     }, function (error) {
-        console.error("No se pudo cargar el perfil empresarial:", error);
+        // Es normal recibir error aquí si el usuario EMPRESA aún no completó su perfil
+        console.log("El usuario aún no tiene perfil empresarial:", error);
+        localStorage.removeItem("nombreEmpresa");
         window.location.href = "inicio 2.html";
     });
 }
