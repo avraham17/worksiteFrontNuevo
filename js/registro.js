@@ -133,15 +133,26 @@ callApi (base_url, method, data, cbSuccess, cbError);
 }
 
 function cbSuccess (data)  {   
+  console.log(">>> Respuesta completa del registro:", data);
+  console.log(">>> data.data:", data.data);
+  console.log(">>> rolNombre recibido:", data.data ? data.data.rolNombre : "data.data es undefined");
+  console.log(">>> token recibido:", data.data ? data.data.token : "data.data es undefined");
+
   alert("Registro guardado correctamente");
     $("#formRegistro")[0].reset();
 
     localStorage.setItem("idUsuario", data.data.id);
-    localStorage.setItem("rol", data.data.rol);                                             
-    window.location.href = "sesion.html";
+    localStorage.setItem("correoUsuario", data.data.correoElectronico);
+    localStorage.setItem("rol", data.data.rolNombre);
+    localStorage.setItem("token", data.data.token);
+
+    if (data.data.rolNombre === "EMPRESA") {
+        window.location.href = "empresa.html";
+    } else {
+        window.location.href = "inicio 2.html";
+    }
 }
 
 function cbError (data)  {
   alert(JSON.stringify(data));
 }
-

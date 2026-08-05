@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WorkSite - Acerca de nosotros</title>
+  <link rel="stylesheet" type="text/css" href="css/nosotros.css">
+  <meta name="autor" content="avraham panameño, Kelly chacon">
+  <meta name="descripcion" content="plantilla worksite">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+</head>
+<body>
+
+  <div id="view-nosotros" class="view active">
+
+    <header>
+      <div class="logo">WorkSite</div>
+      <nav>
+        <a href="worksite-inicio.html" class="nav-link">Inicio</a>
+        <div class="menu-item">
+          <a href="#" class="nav-link">Ofertas <span class="arrow">▾</span></a>
+          <div class="submenu">
+            <a href="crear-oferta.html"><span>📢</span> Publicar oferta</a>
+            <a href="vacantes.html"><span>💼</span> Ver vacantes</a>
+          </div>
+        </div>
+        <div class="menu-item">
+          <a href="#" class="nav-link">Empresas <span class="arrow">▾</span></a>
+          <div class="submenu">
+            <a href="perfil-empresa.html"><span>🏢</span> Perfil empresarial</a>
+            <a href="servicio.html"><span>🛠</span> Productos y servicios</a>
+          </div>
+        </div>
+        <div class="menu-item">
+          <a href="nos.html" class="nav-link activo">Acerca de nosotros <span class="arrow">▾</span></a>
+        </div>
+        <div class="menu-item">
+          <a href="#" class="nav-link">
+            <div class="avatar" id="avatarInicial"></div>
+            <span class="arrow">▾</span>
+          </a>
+          <div class="submenu">
+            <a href="perfil.html"><span>👤</span> Mi perfil</a>
+            <a href="configuracion.html"><span>⚙️</span> Configuración</a>
+            <div class="divider-nav"></div>
+            <a id="botonCerrarSesion" class="danger"><span>🚪</span> Cerrar sesión</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <section class="about-hero">
+      <h1>Acerca de Nosotros</h1>
+      <p>Conectamos talento con oportunidades laborales en un solo lugar</p>
+    </section>
+
+    <div class="section">
+      <div class="about-content">
+        <img src="assets/imagen proyecto.png" alt="Equipo de Work Site">
+        <div class="about-text">
+          <p><strong>Work Site</strong> es una página web de trabajo enfocada en conectar profesionales con oportunidades laborales.
+          Donde podrás impulsar y mostrar tus habilidades, tu talento y todo aquello que te identifica.</p>
+        </div>
+      </div>
+
+      <div class="section-cards">
+        <div class="card">
+          <h3>Nuestra Misión</h3>
+          <p>Brindar una experiencia digital confiable para conectar tu talento con oportunidades laborales, promoviendo el desarrollo profesional de cada usuario.</p>
+        </div>
+
+        <div class="card">
+          <h3>Nuestra Visión</h3>
+          <p>Posicionarnos como la web laboral número uno a nivel nacional, brindando las mayores oportunidades de conectar a usuarios con empleos disponibles.</p>
+        </div>
+
+        <div class="card">
+          <h3>Nuestros Valores</h3>
+          <p>Compromiso, Respeto, Innovación...</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      © 2026 WorkSite | Todos los derechos reservados
+    </footer>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <script>
+    // Llena el avatar con la inicial del nombre guardado al iniciar sesión
+    var nombreUsuario = localStorage.getItem("nombres") || localStorage.getItem("nombre");
+    document.getElementById("avatarInicial").textContent =
+      nombreUsuario ? nombreUsuario.trim().charAt(0).toUpperCase() : "?";
+
+    var botonCerrarSesion = document.getElementById("botonCerrarSesion");
+    if (botonCerrarSesion) {
+      botonCerrarSesion.addEventListener("click", function () {
+        localStorage.clear();
+        window.location.href = "sesion.html";
+      });
+    }
+  </script>
+
+</body>
+</html>

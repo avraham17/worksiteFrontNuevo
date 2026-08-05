@@ -1,4 +1,4 @@
- var registros = [];
+var registros = [];
 
 $(function (){
 
@@ -38,9 +38,12 @@ callApi (base_url, method, data, cbSuccess, cbError);
 function cbSuccess (data)  {   
   alert("Registro de empresa guardado correctamente");
      console.log(data);
-    $("#formRegistro")[0].reset();
 
-    localStorage.setItem("idUsuario", data.data.id);
+    // OJO: data.data.id es el id de la EMPRESA, no del usuario.
+    // No se debe tocar "idUsuario" aquí, o se rompe la identidad de la sesión.
+    localStorage.setItem("nombreEmpresa", $("#nombre").val());
+
+    $("#formRegistro")[0].reset();
     window.location.href = "perfil-empresa.html";
 }
 

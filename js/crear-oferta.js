@@ -68,7 +68,7 @@ $(function () {
             "http://localhost:8080/oferta", "POST", nuevaOferta,
             function (response) {
                 alert("Oferta publicada correctamente");
-                window.location.href = "aplicar-oferta.html";
+                window.location.href = "perfil-empresa.html";
             },
             function (error) {
                 console.error("Error al publicar la oferta:", error);
