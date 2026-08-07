@@ -3,7 +3,7 @@ var idEmpresaActual = null; // se llena desde la BD, no desde localStorage
 $(function () {
 
     var rol = localStorage.getItem("rol");
-    if (rol !== "EMPRESA") {
+    if (rol !== "EMPRESA" && rol !== "ADMIN") {
         alert("No tienes permiso para publicar ofertas");
         window.location.href = "inicio 2.html";
         return;
@@ -30,8 +30,25 @@ $(function () {
 
     }, function (error) {
         console.log("El usuario aún no tiene perfil empresarial:", error);
-        alert("Debes completar tu perfil empresarial antes de publicar una oferta");
-        window.location.href = "perfil-empresa.html";
+
+        if (rol === "ADMIN") {
+            // El admin puede explorar el formulario, pero no publicar sin una empresa a la cual vincular la oferta.
+            $("#empresa").val("Sin perfil empresarial (cuenta ADMIN)");
+            $("#botonPublicar")
+                .prop("disabled", true)
+                .attr("title", "No disponible: esta cuenta no tiene perfil empresarial");
+
+            if ($("#avisoSinEmpresa").length === 0) {
+                $("#empresa").after(
+                    '<p id="avisoSinEmpresa" style="color:#b45309; font-size:12.5px; margin-top:6px;">' +
+                    '⚠️ Esta cuenta de administrador no tiene un perfil empresarial, así que no puede publicar ofertas propias.' +
+                    '</p>'
+                );
+            }
+        } else {
+            alert("Debes completar tu perfil empresarial antes de publicar una oferta");
+            window.location.href = "perfil-empresa.html";
+        }
     });
 
     $("#botonPublicar").on("click", function (e) {

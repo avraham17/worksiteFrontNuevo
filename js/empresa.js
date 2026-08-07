@@ -39,8 +39,6 @@ function cbSuccess (data)  {
   alert("Registro de empresa guardado correctamente");
      console.log(data);
 
-    // OJO: data.data.id es el id de la EMPRESA, no del usuario.
-    // No se debe tocar "idUsuario" aquí, o se rompe la identidad de la sesión.
     localStorage.setItem("nombreEmpresa", $("#nombre").val());
 
     $("#formRegistro")[0].reset();

@@ -1,7 +1,7 @@
 var empresaId = null;
 var nombreEmpresaActual = "";
-var empresaActual = null; // objeto completo, para precargar el modal de edición
-var mapaUsuarios = {}; // correoElectronico -> "Nombres Apellidos"
+var empresaActual = null; 
+var mapaUsuarios = {}; 
 
 function cbError(error) {
     console.error("Error en la petición:", error);
@@ -9,13 +9,46 @@ function cbError(error) {
 
 function loadData() {
     var idUsuario = localStorage.getItem("idUsuario");
+    var rol = localStorage.getItem("rol");
 
     callApi("http://localhost:8080/empresa/usuario/" + idUsuario, "GET", null, function (response) {
         cargarPerfil({ data: response.data });
     }, function (error) {
         console.log("No se encontró un perfil empresarial asociado a tu cuenta:", error);
-        alert("No se encontró un perfil empresarial asociado a tu cuenta.");
+
+        if (rol === "ADMIN") {
+            
+            mostrarEstadoSinEmpresaAdmin();
+        } else {
+            alert("No se encontró un perfil empresarial asociado a tu cuenta.");
+        }
     });
+}
+
+function mostrarEstadoSinEmpresaAdmin() {
+    $("#nombreMostrar").text("Cuenta de administrador");
+    $("#cargoMostrar").text("Sin perfil empresarial");
+    $("#mostrarNombre").text("—");
+    $("#mostrarCorreo").text("—");
+    $("#mostrarTelefono").text("—");
+    $("#mostrarUbicacion").text("—");
+    $("#mostrarSector").text("—");
+    $("#empAvatarCircle").text("A");
+
+    $("#statOfertas").text(0);
+    $("#statActivas").text(0);
+    $("#statPostulantes").text(0);
+
+    $("#listaOfertasEmpresa").empty();
+    $("#sinOfertas")
+        .text("Esta cuenta de administrador no tiene un perfil empresarial, así que no hay ofertas propias que mostrar.")
+        .show();
+
+    
+    $("#btneditar, #btneliminar")
+        .prop("disabled", true)
+        .css("opacity", 0.5)
+        .attr("title", "No disponible: esta cuenta no tiene perfil empresarial");
 }
 
 function updateData(datos) {
@@ -34,7 +67,7 @@ function cargarPerfil(response) {
     var e = response.data;
     empresaId = e.id;
     nombreEmpresaActual = e.nombre;
-    empresaActual = e; // guardamos todo el objeto para precargar el modal de edición
+    empresaActual = e; 
 
     $("#nombreMostrar").text(e.nombre);
     $("#cargoMostrar").text(e.sector);
@@ -63,7 +96,7 @@ function cargarOfertasEmpresa() {
     callApi("http://localhost:8080/oferta/empresa/" + empresaId, "GET", null, function (response) {
         var misOfertas = response.data || [];
 
-        // Activas primero, y dentro de cada grupo, las más recientes primero
+        
         misOfertas.sort(function (a, b) {
             if (a.estado === "activa" && b.estado !== "activa") return -1;
             if (a.estado !== "activa" && b.estado === "activa") return 1;
@@ -121,14 +154,13 @@ function renderOfertas(misOfertas) {
             : "💰 Salario a convenir";
         var salario = $('<div class="emp-oferta-salario"></div>').text(salarioTexto);
 
-        // Meta: ubicación, vacantes, cierre
         var meta = $('<div class="emp-oferta-meta"></div>').html(
             "📍 " + (o.ubicacion || "—") + "<br>" +
             "👥 " + o.numOfertas + " vacante(s)<br>" +
             "📅 Cierra: " + (o.fechaDeCierre || "—")
         );
 
-        // Conteo de postulantes (se llena de forma asíncrona)
+  
         var postulantesBadge = $('<div class="emp-oferta-postulantes">⏳ Consultando postulantes...</div>');
 
         // Botonera
@@ -151,7 +183,6 @@ function renderOfertas(misOfertas) {
         card.append(header, tags, salario, meta, postulantesBadge, acciones);
         contenedor.append(card);
 
-        // Trae el conteo real de postulantes para esta oferta específica
         callApi("http://localhost:8080/postulacion/oferta/" + o.id, "GET", null, function (resp) {
             var cantidad = (resp.data || []).length;
             totalPostulantesGlobal += cantidad;

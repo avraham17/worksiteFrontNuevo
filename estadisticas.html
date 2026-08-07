@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estadísticas - WorkSite</title>
+  <link rel="stylesheet" href="css/estadisticas.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">WorkSite</div>
+  <nav>
+    <a href="inicio 2.html" class="nav-link">Inicio</a>
+    <div class="menu-item">
+      <a href="#" class="nav-link">Ofertas <span class="arrow">▾</span></a>
+      <div class="submenu">
+        <a href="crear-oferta.html"><span>📢</span> Publicar oferta</a>
+        <a href="vacantes.html"><span>💼</span> Ver vacantes</a>
+      </div>
+    </div>
+    <div class="menu-item">
+      <a href="#" class="nav-link">Empresas <span class="arrow">▾</span></a>
+      <div class="submenu">
+        <a href="perfil-empresa.html"><span>🏢</span> Perfil empresarial</a>
+        <a href="#"><span>🛠</span> Productos y servicios</a>
+      </div>
+    </div>
+    <div class="menu-item">
+      <a href="nosotros.html" class="nav-link">Acerca de nosotros <span class="arrow">▾</span></a>
+    </div>
+    <div class="menu-item">
+      <a href="estadisticas.html" class="nav-link">📊 Estadísticas</a>
+    </div>
+    <div class="menu-item">
+      <a href="#" class="nav-link">
+        <div class="avatar" id="avatarInicial"></div>
+        <span class="arrow">▾</span>
+      </a>
+      <div class="submenu">
+        <a href="perfil.html"><span>👤</span> Mi perfil</a>
+        <a href="configuracion.html"><span>⚙️</span> Configuración</a>
+        <div class="divider-nav"></div>
+        <a id="botonCerrarSesion" class="danger"><span>🚪</span> Cerrar sesión</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="hero-banner">
+  <div class="hero-overlay">
+    <h1>📊 Estadísticas de la plataforma</h1>
+    <p>Resumen general de usuarios, ofertas y postulaciones</p>
+  </div>
+</div>
+
+<main class="container">
+
+  <div id="estadoCargando" class="est-empty-state">
+    <div class="est-empty-icon">⏳</div>
+    <p>Cargando estadísticas...</p>
+  </div>
+
+  <div id="contenidoEstadisticas" style="display:none;">
+
+    <!-- Tarjetas resumen -->
+    <section class="est-stats-grid">
+      <div class="est-stat-card">
+        <div class="est-stat-icon">👥</div>
+        <div>
+          <div class="est-stat-num" id="statTotalUsuarios">0</div>
+          <div class="est-stat-label">Usuarios registrados</div>
+        </div>
+      </div>
+      <div class="est-stat-card">
+        <div class="est-stat-icon">🙋</div>
+        <div>
+          <div class="est-stat-num" id="statCandidatos">0</div>
+          <div class="est-stat-label">Candidatos</div>
+        </div>
+      </div>
+      <div class="est-stat-card">
+        <div class="est-stat-icon">🏢</div>
+        <div>
+          <div class="est-stat-num" id="statEmpresas">0</div>
+          <div class="est-stat-label">Empresas</div>
+        </div>
+      </div>
+      <div class="est-stat-card">
+        <div class="est-stat-icon">📢</div>
+        <div>
+          <div class="est-stat-num" id="statTotalOfertas">0</div>
+          <div class="est-stat-label">Ofertas publicadas</div>
+        </div>
+      </div>
+      <div class="est-stat-card">
+        <div class="est-stat-icon">🟢</div>
+        <div>
+          <div class="est-stat-num" id="statOfertasActivas">0</div>
+          <div class="est-stat-label">Ofertas activas</div>
+        </div>
+      </div>
+      <div class="est-stat-card">
+        <div class="est-stat-icon">📄</div>
+        <div>
+          <div class="est-stat-num" id="statTotalPostulaciones">0</div>
+          <div class="est-stat-label">Postulaciones totales</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gráficas -->
+    <section class="est-charts-grid">
+      <div class="est-chart-card">
+        <h2 class="est-chart-title">Estado de las postulaciones</h2>
+        <canvas id="graficoPostulaciones"></canvas>
+      </div>
+      <div class="est-chart-card">
+        <h2 class="est-chart-title">Usuarios por rol</h2>
+        <canvas id="graficoUsuarios"></canvas>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="estadoError" class="est-empty-state" style="display:none;">
+    <div class="est-empty-icon">🚫</div>
+    <p>No se pudieron cargar las estadísticas. Verifica que tengas permisos de administrador.</p>
+  </div>
+
+</main>
+
+<footer>
+  © 2026 WorkSite | Todos los derechos reservados
+</footer>
+
+<script src="js/auth-guard.js"></script>
+<script>
+    requireAuth(["ADMIN"]);
+</script>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="Js/core.js"></script>
+<script src="Js/estadisticas.js"></script>
+
+</body>
+</html>
