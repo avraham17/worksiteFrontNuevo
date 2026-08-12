@@ -96,6 +96,32 @@ window.addEventListener("DOMContentLoaded", function () {
     const nombre   = localStorage.getItem("nombreUsuario")   || "";
     const apellido = localStorage.getItem("apellidoUsuario") || "";
 
+    const rol = localStorage.getItem("rol");
+
+    const menuEmpresas = document.getElementById("menuEmpresas");
+    if (menuEmpresas) {
+        // Se muestra solo si la cuenta es EMPRESA (o ADMIN, que ve de todo)
+        menuEmpresas.style.display = (rol === "EMPRESA" || rol === "ADMIN") ? "" : "none";
+    }
+
+    const linkVerVacantes = document.getElementById("linkVerVacantes");
+    if (linkVerVacantes) {
+        // Coincide con requireAuth(["CANDIDATO", "ADMIN"]) de vacantes.html
+        linkVerVacantes.style.display = (rol === "CANDIDATO" || rol === "ADMIN") ? "" : "none";
+    }
+
+    const linkPublicarOferta = document.getElementById("linkPublicarOferta");
+    if (linkPublicarOferta) {
+        // Coincide con la validación de rol dentro de crear-oferta.js
+        linkPublicarOferta.style.display = (rol === "EMPRESA" || rol === "ADMIN") ? "" : "none";
+    }
+
+    const menuEstadisticas = document.getElementById("menuEstadisticas");
+    if (menuEstadisticas) {
+        // Solo ADMIN
+        menuEstadisticas.style.display = (rol === "ADMIN") ? "" : "none";
+    }
+
     const inicialNombre   = nombre.charAt(0).toUpperCase();
     const inicialApellido = apellido.charAt(0).toUpperCase();
 

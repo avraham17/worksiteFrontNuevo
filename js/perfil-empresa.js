@@ -17,7 +17,7 @@ function loadData() {
         console.log("No se encontró un perfil empresarial asociado a tu cuenta:", error);
 
         if (rol === "ADMIN") {
-            
+            // El admin no es una empresa: dejamos la página navegable, sin bloquear con alert.
             mostrarEstadoSinEmpresaAdmin();
         } else {
             alert("No se encontró un perfil empresarial asociado a tu cuenta.");
@@ -44,7 +44,7 @@ function mostrarEstadoSinEmpresaAdmin() {
         .text("Esta cuenta de administrador no tiene un perfil empresarial, así que no hay ofertas propias que mostrar.")
         .show();
 
-    
+    // Editar/eliminar no aplican a una cuenta sin perfil empresarial
     $("#btneditar, #btneliminar")
         .prop("disabled", true)
         .css("opacity", 0.5)
@@ -183,6 +183,7 @@ function renderOfertas(misOfertas) {
         card.append(header, tags, salario, meta, postulantesBadge, acciones);
         contenedor.append(card);
 
+        // Trae el conteo real de postulantes para esta oferta específica
         callApi("http://localhost:8080/postulacion/oferta/" + o.id, "GET", null, function (resp) {
             var cantidad = (resp.data || []).length;
             totalPostulantesGlobal += cantidad;
@@ -238,7 +239,9 @@ function mostrarPostulantes(idOferta, tituloOferta) {
     $("#modalPostulantesTitulo").text("Postulantes: " + tituloOferta);
     $("#listaPostulantes").html('<p class="emp-cargando">Cargando postulantes...</p>');
 
-    var modal = new bootstrap.Modal(document.getElementById('modalPostulantes'));
+    // getOrCreateInstance reutiliza el modal si ya está abierto, en vez de crear uno nuevo
+    // encima (que era lo que iba apilando fondos oscuros con cada clic en Aceptar/Rechazar).
+    var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('modalPostulantes'));
     modal.show();
 
     callApi("http://localhost:8080/postulacion/oferta/" + idOferta, "GET", null, function (response) {
@@ -258,25 +261,15 @@ function mostrarPostulantes(idOferta, tituloOferta) {
         }
 
         postulantes.forEach(function (p) {
-            var nombreCandidato = p.candidato || p.correoCandidato;
-            var inicial = nombreCandidato.trim().charAt(0).toUpperCase();
-            var estado = (p.estadoPostulacion || "").toLowerCase();
-
-            var claseBadge = "badge-pendiente";
-            if (estado === "aceptado" || estado === "aceptada") claseBadge = "badge-aceptado";
-            else if (estado === "rechazado" || estado === "rechazada") claseBadge = "badge-rechazado";
-
             var fila = $('<div class="emp-postulante-row"></div>');
+            var claseBadge = obtenerClaseBadge(p.estadoPostulacion);
 
-            var avatar = $('<div class="emp-postulante-avatar"></div>').text(inicial);
-
-            var izquierda = $('<div class="emp-postulante-info"></div>').html(
-                "<strong>" + nombreCandidato + "</strong><br>" +
+            var cabecera = $('<div class="emp-postulante-cabecera"></div>');
+            var avatar = $('<div class="emp-postulante-avatar"></div>').text("…");
+            var info = $('<div class="emp-postulante-info"></div>').html(
+                "<strong>" + (p.candidato || p.correoCandidato) + "</strong><br>" +
                 "<small>" + p.correoCandidato + " · Postulado el " + p.fechaPostulacion + "</small>"
             );
-
-            var infoRow = $('<div class="emp-postulante-left"></div>');
-            infoRow.append(avatar, izquierda);
 
             var derecha = $('<div class="emp-postulante-right"></div>');
             var badge = $('<span class="badge-estado ' + claseBadge + '"></span>').text(p.estadoPostulacion);
@@ -294,11 +287,51 @@ function mostrarPostulantes(idOferta, tituloOferta) {
 
             acciones.append(btnAceptar, btnRechazar);
             derecha.append(badge, acciones);
+            cabecera.append(avatar, info, derecha);
 
-            fila.append(infoRow, derecha);
+            var detalles = $('<div class="emp-postulante-detalles">Cargando datos del candidato...</div>');
+
+            fila.append(cabecera, detalles);
             contenedor.append(fila);
+
+            // Trae el perfil completo del candidato para mostrar sus datos extra
+            callApi("http://localhost:8080/ResgistroUsuario/" + p.idCandidato, "GET", null, function (resp) {
+                var c = resp.data;
+                avatar.text((c.nombres || "?").trim().charAt(0).toUpperCase());
+
+                detalles.html(
+                  fila_detalle("👤nombre", c.nombres + " " + c.apellidos) +
+                    fila_detalle("📧correo electrónico", c.correoElectronico) +
+                    fila_detalle("💼 Ocupación u Oficio", c.Cargo) +
+                    fila_detalle("🎓 Nivel de Estudio", c.estudio) +
+                    fila_detalle("📞 Número Telefónico", c.numeroTelefonico) +
+                    fila_detalle("📍 Ciudad", c.Ciudad) +
+                    fila_detalle("🎂 Fecha de Nacimiento", c.fechaNacimiento) +
+                    fila_detalle("📝 Descripción", c.Descripcion, true)
+                );
+            }, function () {
+                avatar.text((p.candidato || "?").trim().charAt(0).toUpperCase());
+                detalles.html('<span class="emp-postulante-detalle-error">No se pudieron cargar los datos adicionales del candidato.</span>');
+            });
         });
     }, cbError);
+}
+
+function obtenerClaseBadge(estadoPostulacion) {
+    var estado = (estadoPostulacion || "").toLowerCase();
+    if (estado === "aceptado" || estado === "aceptada") return "badge-aceptado";
+    if (estado === "rechazado" || estado === "rechazada") return "badge-rechazado";
+    return "badge-pendiente";
+}
+
+function fila_detalle(etiqueta, valor, anchoCompleto) {
+    var clase = anchoCompleto ? "emp-postulante-detalle emp-postulante-detalle-full" : "emp-postulante-detalle";
+    return (
+        '<div class="' + clase + '">' +
+            '<span class="emp-postulante-detalle-label">' + etiqueta + '</span>' +
+            '<span class="emp-postulante-detalle-valor">' + (valor || "—") + '</span>' +
+        '</div>'
+    );
 }
 
 function cambiarEstadoPostulacion(p, nuevoEstado, idOferta, tituloOferta) {
@@ -326,7 +359,7 @@ $(function () {
             $("#editTelefono").val(empresaActual.telefono || "");
             $("#editCorreo").val(empresaActual.correo || "");
         }
-        var modal = new bootstrap.Modal(document.getElementById('modalEditar'));
+        var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('modalEditar'));
         modal.show();
     });
 
