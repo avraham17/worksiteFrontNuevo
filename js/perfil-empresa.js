@@ -1,6 +1,7 @@
 var empresaId = null;
 var nombreEmpresaActual = "";
 var empresaActual = null; 
+var fotoBase64Nueva = null;
 var mapaUsuarios = {}; 
 
 function cbError(error) {
@@ -78,11 +79,21 @@ function cargarPerfil(response) {
     $("#mostrarSector").text(e.sector);
     $("#empAvatarCircle").text((e.nombre || "?").trim().charAt(0).toUpperCase());
 
+     if (response.data.foto) {
+            $("#fotoPreview").attr("src", response.data.foto);
+        }
+
     cargarOfertasEmpresa();
 }
 
 function actualizarPerfil(response) {
     alert("Datos actualizados correctamente");
+
+    if (response.data.foto) {
+            $("#fotoPreview").attr("src", response.data.foto);
+        }
+
+        fotoBase64Nueva = null;
     loadData();
 }
 
@@ -398,13 +409,36 @@ $(function () {
     });
 });
 
+
 function previewFoto(e) {
     const file = e.target.files[0];
     if (file) {
         const reader = new FileReader();
         reader.onload = ev => {
-            document.getElementById('fotoPreview').src = ev.target.result;
+            const src = ev.target.result;
+            document.getElementById('fotoPreview').src = src;
+            fotoBase64Nueva = src; // por si el usuario sigue y guarda el modal de edición
+            guardarFotoAutomatico(src); // el botón "Cambiar foto" guarda directo, sin pasar por el modal
         };
         reader.readAsDataURL(file);
     }
+}
+
+// El botón "Cambiar foto" está fuera del modal de edición. En vez de reenviar
+// TODO el perfil, usamos un endpoint dedicado que solo actualiza la foto.
+function guardarFotoAutomatico(fotoBase64) {
+    if (!empresaId) {
+        alert("Aún no se ha cargado tu perfil empresarial");
+        return;
+    }
+
+    callApi(
+        "http://localhost:8080/empresa/" + empresaId + "/foto", "PUT",
+        { "foto": fotoBase64 },
+        function () {
+            fotoBase64Nueva = null;
+            loadData(); // recarga el perfil para reflejar la foto guardada
+        },
+        cbError
+    );
 }
