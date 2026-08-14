@@ -1,6 +1,13 @@
 *{margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif;}
 
-body{ background:#eef2ff; }
+body {
+  background-image:    linear-gradient(rgba(255,255,255,0.75), rgba(255, 255, 255, 0.163)), url("../assets/112.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
 
 header {
   background: #ffffff;
@@ -96,7 +103,7 @@ nav {
 .logo { font-size: 24px; font-weight: bold; color: #07286f; }
 
 .hero-banner {
-  background: linear-gradient(rgba(7,40,111,0.82), rgba(37,99,235,0.70));
+  background: linear-gradient(rgba(7,40,111,0.82), rgba(2, 32, 96, 0.914));
   padding: 50px 8%;
 }
 
@@ -248,9 +255,6 @@ footer {
   gap: 2px;
 }
 
-/* =========================
-   TARJETAS DE OFERTA (perfil empresa)
-========================= */
 .emp-oferta-card {
   background: #f5f7ff;
   border: 1px solid #e0e7ff;
@@ -319,9 +323,7 @@ footer {
   flex-wrap: wrap;
 }
 
-/* =========================
-   BOTONES DE ACCIÓN (oferta): Ver / Pausar / Reactivar
-========================= */
+
 .emp-btn-ver,
 .emp-btn-pausar,
 .emp-btn-reactivar {
@@ -369,7 +371,6 @@ footer {
   transform: translateY(0);
 }
 
-/* Badge numérico (notificación) sobre el botón "Ver postulantes" */
 .emp-btn-badge {
   position: absolute;
   top: -7px;
@@ -388,9 +389,7 @@ footer {
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* =========================
-   MODAL DE POSTULANTES
-========================= */
+
 .emp-postulante-row {
   display: flex;
   justify-content: space-between;

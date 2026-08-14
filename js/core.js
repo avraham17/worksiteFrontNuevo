@@ -129,4 +129,4 @@ window.addEventListener("DOMContentLoaded", function () {
     if (avatar) {
         avatar.textContent = inicialNombre + inicialApellido;
     }
-});
+}); 

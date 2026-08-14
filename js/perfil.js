@@ -1,4 +1,5 @@
 var usuarioActual = null; // objeto completo, para precargar el modal de edición
+var fotoBase64Nueva = null; // guarda la foto recién seleccionada (en base64) hasta que se guarde
 
     function cbError(error) {
         console.error("Error en la petición:", error);
@@ -41,9 +42,14 @@ var usuarioActual = null; // objeto completo, para precargar el modal de edició
         $("#mostrarnivelEstudio").text(response.data.estudio);
         $("#mostrarDescripcion").text(response.data.Descripcion);
         $("#mostrarCiudad").text(response.data.Ciudad);
-                                                                                                                                        
-        
-    }                                           
+
+        // Pintamos la foto guardada (si existe) en el avatar de perfil
+        if (response.data.foto) {
+            $("#fotoPreview").attr("src", response.data.foto);
+        }
+
+    }
+
     function actualizarPerfil(response){
 
 
@@ -58,6 +64,12 @@ var usuarioActual = null; // objeto completo, para precargar el modal de edició
         $("#mostrarDescripcion").text(response.data.Descripcion);
         $("#mostrarCiudad").text(response.data.Ciudad);
         $("#cargoMostrar").text(response.data.Cargo);
+
+        if (response.data.foto) {
+            $("#fotoPreview").attr("src", response.data.foto);
+        }
+
+        fotoBase64Nueva = null; // ya se guardó, limpiamos el buffer temporal
 
         var idUsuario = localStorage.getItem("idUsuario");
 
@@ -133,7 +145,10 @@ var usuarioActual = null; // objeto completo, para precargar el modal de edició
             // ignore este campo si llega vacío. Avísame si quieres que lo ajustemos ahí también.
             "contrasenia": $("#editContrasenia").val() || usuarioActual.contrasenia,
             "tipoIdentificacion": $("#editTipoId").val(),
-            
+            // Si el usuario eligió una foto nueva la mandamos en base64;
+            // si no, mandamos la que ya tenía para que el backend no la borre.
+            "foto": fotoBase64Nueva || usuarioActual.foto,
+
         };
         
 
@@ -198,8 +213,27 @@ function previewFoto(e) {
         reader.onload = ev => {
             const src = ev.target.result;
             document.getElementById('fotoPreview').src = src;
-        
+            fotoBase64Nueva = src; // por si el usuario sigue y guarda el modal de edición
+            guardarFotoAutomatico(src); // el botón "Cambiar foto" guarda directo, sin pasar por el modal
         };
         reader.readAsDataURL(file);
     }
+}
+
+// El botón "Cambiar foto" está fuera del modal de edición. En vez de reenviar
+// TODO el perfil (lo que fallaba por validaciones de otros campos, como la
+// contraseña, que aquí siempre llega null), usamos un endpoint dedicado que
+// solo actualiza la foto.
+function guardarFotoAutomatico(fotoBase64) {
+    var idUsuario = localStorage.getItem("idUsuario");
+
+    callApi(
+        "http://localhost:8080/ResgistroUsuario/" + idUsuario + "/foto", "PUT",
+        { "foto": fotoBase64 },
+        function () {
+            fotoBase64Nueva = null;
+            loadData(idUsuario); // recarga el perfil para reflejar la foto guardada
+        },
+        cbError
+    );
 }
