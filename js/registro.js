@@ -5,6 +5,18 @@ $(function (){
 $("#nombre, #Apellido, #correo, #tipoDocumento, #Cedula, #telefono, #fechaNacimiento, #Genero, #experiencia, #contraseña, #confirmar, #cv, #Descripcion, #Estudio, #Cargo, #Ciudad ").on("change", onChangeInputWithErrorClass);
 $("#botonRegistrarse").click(onClickButton);
 
+// El campo de código de administrador solo se muestra (y se exige) si
+// el usuario elige la cuenta ADMIN. Para cualquier otro rol se oculta
+// y se limpia, para no mandarlo por accidente.
+$("#rol").on("change", function () {
+    if ($(this).val() === "ADMIN") {
+        $("#grupoCodigoAdmin").show();
+    } else {
+        $("#grupoCodigoAdmin").hide();
+        $("#codigoAdmin").val("").removeClass("error");
+    }
+});
+
 });
 
 
@@ -95,6 +107,12 @@ var onClickButton = function (e) {
     isFormValid = false;
   }
 
+  // El código de administrador solo es obligatorio si eligieron ese rol.
+  if ($("#rol").val() === "ADMIN" && $("#codigoAdmin").val() === "") {
+    $("#codigoAdmin").addClass("error");
+    isFormValid = false;
+  }
+
   if (!isFormValid) {
     alert("Formulario incompleto!");
     return;
@@ -116,6 +134,7 @@ var onClickButton = function (e) {
     "estudio": $("#Estudio").val (),
     "descripcion": $("#Descripcion").val (),
     "rolNombre": $("#rol").val (),
+    "codigoAdmin": $("#codigoAdmin").val (),
     
   };
 
@@ -136,7 +155,7 @@ function cbSuccess (data)  {
   console.log(">>> Respuesta completa del registro:", data);
   console.log(">>> data.data:", data.data);
   console.log(">>> rolNombre recibido:", data.data ? data.data.rolNombre : "data.data es undefined");
-  console.log(">>> token recibido:", data.data ? data.data.token : "data.data es undefined");
+   console.log(">>> token recibido:", data.data ? data.data.token : "data.data es undefined");
 
   alert("Registro guardado correctamente");
     $("#formRegistro")[0].reset();
@@ -154,5 +173,6 @@ function cbSuccess (data)  {
 }
 
 function cbError (data)  {
-  alert(JSON.stringify(data));
+  var mensaje = (data && data.message) ? data.message : "Ocurrió un error al registrarte. Intenta de nuevo.";
+  alert(mensaje);
 }

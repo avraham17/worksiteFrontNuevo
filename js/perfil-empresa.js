@@ -320,6 +320,18 @@ function mostrarPostulantes(idOferta, tituloOferta) {
                     fila_detalle("🎂 Fecha de Nacimiento", c.fechaNacimiento) +
                     fila_detalle("📝 Descripción", c.Descripcion, true)
                 );
+
+                var contenedorCv = $('<div class="emp-postulante-detalle emp-postulante-detalle-full"></div>');
+                if (c.cv) {
+                    var btnVerCv = $('<button type="button" class="emp-btn-ver">📄 Ver hoja de vida</button>');
+                    btnVerCv.on("click", function () {
+                        verHojaDeVida(c.cv);
+                    });
+                    contenedorCv.append(btnVerCv);
+                } else {
+                    contenedorCv.html('<span class="emp-postulante-detalle-label">📄 Este candidato aún no ha subido su hoja de vida</span>');
+                }
+                detalles.append(contenedorCv);
             }, function () {
                 avatar.text((p.candidato || "?").trim().charAt(0).toUpperCase());
                 detalles.html('<span class="emp-postulante-detalle-error">No se pudieron cargar los datos adicionales del candidato.</span>');
@@ -356,6 +368,39 @@ function cambiarEstadoPostulacion(p, nuevoEstado, idOferta, tituloOferta) {
     callApi("http://localhost:8080/postulacion/" + p.idPostulacion, "PUT", datosActualizados, function () {
         mostrarPostulantes(idOferta, tituloOferta);
     }, cbError);
+}
+
+// El modal visor de PDF se inyecta por JS (no depende de que exista en el
+// HTML). Se usa tanto para ver la hoja de vida de un candidato.
+function asegurarModalVerCv() {
+    if (document.getElementById('modalVerCv')) return;
+
+    $("body").append(
+        '<div class="modal fade" id="modalVerCv" tabindex="-1">' +
+            '<div class="modal-dialog modal-lg modal-dialog-scrollable">' +
+                '<div class="modal-content" style="height:85vh;">' +
+                    '<div class="modal-header">' +
+                        '<h2 class="modal-title">Hoja de vida</h2>' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>' +
+                    '</div>' +
+                    '<div class="modal-body p-0" style="height:100%;">' +
+                        '<iframe id="iframeCv" src="" style="width:100%; height:100%; border:none;"></iframe>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>'
+    );
+
+    $("#modalVerCv").on("hidden.bs.modal", function () {
+        $("#iframeCv").attr("src", "");
+    });
+}
+
+function verHojaDeVida(cvBase64) {
+    asegurarModalVerCv();
+    $("#iframeCv").attr("src", cvBase64);
+    var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('modalVerCv'));
+    modal.show();
 }
 
 $(function () {

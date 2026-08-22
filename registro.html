@@ -113,6 +113,11 @@
                 <label>Confirmar contraseña</label>
                 <input type="password" id="confirmar" name="confirmar" required>
             </div>
+
+            <div>
+                <label>Hoja de vida (PDF)</label>
+                <input type="file" id="cv" name="cv" accept="application/pdf">
+            </div>
         </div>
 
            <div>    
@@ -124,6 +129,12 @@
                     <option value="ADMIN">ADMINISTRADOR</option>
                 </select>   
             </div>
+
+            <div id="grupoCodigoAdmin" style="display:none;">
+                <label>Código de administrador</label>
+                <input type="password" id="codigoAdmin" name="codigoAdmin" placeholder="Solo para cuentas de administrador">
+            </div>
+
           <button  id="botonRegistrarse"  type="button"  class="bntn bnt-primary" >Registrarse</button>
     </form>
 
